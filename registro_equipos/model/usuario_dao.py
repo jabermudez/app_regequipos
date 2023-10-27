@@ -41,10 +41,10 @@ def borrar_tabla():
         messagebox.showerror(titulo, mensaje)
 
 class Usuario:
-    def __init__(self, nombre, apellido, documento):
+    def __init__(self, nombre, apellidos, documento):
         self.id_usuario = None
         self.nombre = nombre
-        self.apellido = apellido
+        self.apellido = apellidos
         self.documento = documento
     
     def __str__(self):
@@ -86,13 +86,25 @@ def editar(usuario, id_usuario):
     conexion = ConexionDB()
 
     sql = f"""UPDATE usuarios 
-    SET nombre ='{usuario.nombre}, apellidos ='{usuario.apellido}, documento ='{usuario.documento}'
-    WHERE id_usuario = '{id_usuario}'"""
+    SET nombre ='{usuario.nombre}', apellido ='{usuario.apellido}', documento ={usuario.documento}
+    WHERE id_usuario = {id_usuario}"""
 
     try:
         conexion.cursor.execute(sql)
         conexion.cerrar()
     except:
-        titulo = 'Edició de datos'
+        titulo = 'Edición de datos'
         mensaje = 'No se ha podido editar este registro'
+        messagebox.showerror(titulo, mensaje)
+
+def eliminar(id_usuario):
+    conexion = ConexionDB()
+    sql = f'DELETE FROM usuarios WHERE id_usuario = {id_usuario}'
+
+    try:
+        conexion.cursor.execute(sql)
+        conexion.cerrar()
+    except:
+        titulo = 'Eliminar datos'
+        mensaje = 'No se pudo eliminar este registro'
         messagebox.showerror(titulo, mensaje)

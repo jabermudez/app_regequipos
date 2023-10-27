@@ -3,6 +3,7 @@ from usuarios.interfaz import Frame, barra_menu
 
 def main():
     root = tk.Tk()
+    #root.geometry("1000x400")
     root.title('Registro de Equipos de Computo')
     root.iconbitmap('img/nuevo_logo.ico')
     #root.resizable(0,0)

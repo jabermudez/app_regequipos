@@ -1,0 +1,60 @@
+('C:\\Users\\jalexanderb\\OneDrive - Servicio Nacional de '
+ 'Aprendizaje\\Documentos\\GitHub\\app_regequipos\\registro_equipos\\build\\registro\\registro.pkg',
+ {'BINARY': True,
+  'DATA': True,
+  'EXECUTABLE': True,
+  'EXTENSION': True,
+  'PYMODULE': True,
+  'PYSOURCE': True,
+  'PYZ': False,
+  'SPLASH': True,
+  'SYMLINK': False},
+ [('pyi-contents-directory _internal', '', 'OPTION'),
+  ('PYZ-00.pyz',
+   'C:\\Users\\jalexanderb\\OneDrive - Servicio Nacional de '
+   'Aprendizaje\\Documentos\\GitHub\\app_regequipos\\registro_equipos\\build\\registro\\PYZ-00.pyz',
+   'PYZ'),
+  ('struct',
+   'C:\\Users\\jalexanderb\\OneDrive - Servicio Nacional de '
+   'Aprendizaje\\Documentos\\GitHub\\app_regequipos\\registro_equipos\\build\\registro\\localpycs\\struct.pyc',
+   'PYMODULE'),
+  ('pyimod01_archive',
+   'C:\\Users\\jalexanderb\\OneDrive - Servicio Nacional de '
+   'Aprendizaje\\Documentos\\GitHub\\app_regequipos\\registro_equipos\\build\\registro\\localpycs\\pyimod01_archive.pyc',
+   'PYMODULE'),
+  ('pyimod02_importers',
+   'C:\\Users\\jalexanderb\\OneDrive - Servicio Nacional de '
+   'Aprendizaje\\Documentos\\GitHub\\app_regequipos\\registro_equipos\\build\\registro\\localpycs\\pyimod02_importers.pyc',
+   'PYMODULE'),
+  ('pyimod03_ctypes',
+   'C:\\Users\\jalexanderb\\OneDrive - Servicio Nacional de '
+   'Aprendizaje\\Documentos\\GitHub\\app_regequipos\\registro_equipos\\build\\registro\\localpycs\\pyimod03_ctypes.pyc',
+   'PYMODULE'),
+  ('pyimod04_pywin32',
+   'C:\\Users\\jalexanderb\\OneDrive - Servicio Nacional de '
+   'Aprendizaje\\Documentos\\GitHub\\app_regequipos\\registro_equipos\\build\\registro\\localpycs\\pyimod04_pywin32.pyc',
+   'PYMODULE'),
+  ('pyiboot01_bootstrap',
+   'C:\\Users\\jalexanderb\\OneDrive - Servicio Nacional de '
+   'Aprendizaje\\Documentos\\GitHub\\app_regequipos\\pcenv\\Lib\\site-packages\\PyInstaller\\loader\\pyiboot01_bootstrap.py',
+   'PYSOURCE'),
+  ('pyi_rth_inspect',
+   'C:\\Users\\jalexanderb\\OneDrive - Servicio Nacional de '
+   'Aprendizaje\\Documentos\\GitHub\\app_regequipos\\pcenv\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth_inspect.py',
+   'PYSOURCE'),
+  ('pyi_rth__tkinter',
+   'C:\\Users\\jalexanderb\\OneDrive - Servicio Nacional de '
+   'Aprendizaje\\Documentos\\GitHub\\app_regequipos\\pcenv\\Lib\\site-packages\\PyInstaller\\hooks\\rthooks\\pyi_rth__tkinter.py',
+   'PYSOURCE'),
+  ('registro',
+   'C:\\Users\\jalexanderb\\OneDrive - Servicio Nacional de '
+   'Aprendizaje\\Documentos\\GitHub\\app_regequipos\\registro_equipos\\registro.py',
+   'PYSOURCE')],
+ 'python312.dll',
+ True,
+ False,
+ False,
+ [],
+ None,
+ None,
+ None)

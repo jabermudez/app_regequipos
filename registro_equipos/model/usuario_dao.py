@@ -86,8 +86,7 @@ def editar(usuario, id_usuario):
     conexion = ConexionDB()
 
     sql = f"""UPDATE usuarios 
-    SET nombre ='{usuario.nombre}', apellido ='{usuario.apellido}', documento ={usuario.documento}
-    WHERE id_usuario = {id_usuario}"""
+    SET nombre ='{usuario.nombre}', apellidos ='{usuario.apellido}', documento = {usuario.documento} WHERE id_usuario = {id_usuario}"""
 
     try:
         conexion.cursor.execute(sql)

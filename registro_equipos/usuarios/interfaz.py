@@ -24,20 +24,20 @@ class Frame(tk.Frame):
         super().__init__(root, width=800, height=300)
         self.root = root
         self.pack()
-        self.config( bg='#A9DFBF')
+        self.config( bg='#FF8028')
         self.id_usuario = None
 
         self.label_tituloinst = tk.Label(self, text='REGISTRO DE USUARIOS')
-        self.label_tituloinst.config(font=('Arial', 16, 'bold'),fg='green', bg= '#A9DFBF')
+        self.label_tituloinst.config(font=('Arial', 16, 'bold'),fg='#000000', bg= '#FFA030')
         self.label_tituloinst.grid(row=0, column=0, columnspan=5, padx=10, pady=10)
    
         self.img = tk.PhotoImage(file="./img/logo.png")
         self.img = self.img.subsample(3,3)
-        lbl_img = tk.Label(self, bg='#A9DFBF', image = self.img)        
+        lbl_img = tk.Label(self, bg='#FFA030', image = self.img)        
         lbl_img.grid(row=0, column=0, padx=10, pady=10, rowspan=3)
 
         self.label_nominst = tk.Label(self, text='Servicio Nacional\n de Aprendizaje ')
-        self.label_nominst.config(font=('Arial', 12,), fg='green',bg= '#A9DFBF')
+        self.label_nominst.config(font=('Arial', 12,), fg='#000000',bg= '#FFB043')
         self.label_nominst.grid(row=3, column=0, padx=10, pady=10)
 
         self.campos_usuarios()
@@ -47,15 +47,15 @@ class Frame(tk.Frame):
     def campos_usuarios(self):
         #label de cada campo
         self.label_nombre = tk.Label(self, text='Nombres: ')
-        self.label_nombre.config(font=('Arial', 12), bg= '#A9DFBF')
+        self.label_nombre.config(font=('Arial', 12),fg='#000000', bg= '#FFB043')
         self.label_nombre.grid(row=1, column=1, padx=10, pady=10, sticky="w")
 
         self.label_apellido = tk.Label(self, text='Apellidos: ')
-        self.label_apellido.config(font=('Arial', 12), bg= '#A9DFBF')
+        self.label_apellido.config(font=('Arial', 12),fg='#000000', bg= '#FFB043')
         self.label_apellido.grid(row=2, column=1, padx=10, pady=10, sticky="w")
 
         self.label_documento = tk.Label(self, text='Identificación: ')
-        self.label_documento.config(font=('Arial', 12), bg= '#A9DFBF')
+        self.label_documento.config(font=('Arial', 12),fg='#000000', bg= '#FFB043')
         self.label_documento.grid(row=3, column=1, padx=10, pady=10, sticky="w")
 
          #Campos de entrada

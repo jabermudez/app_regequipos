@@ -1,7 +1,9 @@
 import tkinter as tk
+
 from tkinter import ttk, messagebox
 from model.usuario_dao import crear_tabla, borrar_tabla
 from model.usuario_dao import Usuario, guardar, listar, editar, eliminar
+
 
 def barra_menu(root):
     barra_menu = tk.Menu(root)
@@ -26,10 +28,10 @@ class Frame(tk.Frame):
         self.config( bg='#A9DFBF')
         self.id_usuario = None
    
-
-        img = tk.PhotoImage(file="./img/logo.png")
-        img = img.subsample(3,3)
-        lbl_img = tk.Label(self, image = img)
+        
+        self.img = tk.PhotoImage(file="./img/logo.png")
+        self.img = self.img.subsample(3,3)
+        lbl_img = tk.Label(self, image = self.img)
         lbl_img.grid(row=0, column=0, padx=10, pady=10, rowspan=3)
 
         self.campos_usuarios()

@@ -1,4 +1,5 @@
 import tkinter as tk
+from PIL import Image, ImageTk
 from usuarios.interfaz import Frame, barra_menu
 
 def main():

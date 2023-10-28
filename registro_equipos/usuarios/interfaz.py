@@ -27,8 +27,8 @@ class Frame(tk.Frame):
         self.config( bg='#A9DFBF')
         self.id_usuario = None
 
-        self.label_tituloinst = tk.Label(self, text='Servicio Nacional\n de Aprendizaje ')
-        self.label_tituloinst.config(font=('Arial', 12, 'bold'), bg= '#A9DFBF')
+        self.label_tituloinst = tk.Label(self, text='REGISTRO DE USUARIOS')
+        self.label_tituloinst.config(font=('Arial', 16, 'bold'),fg='green', bg= '#A9DFBF')
         self.label_tituloinst.grid(row=0, column=0, columnspan=5, padx=10, pady=10)
    
         self.img = tk.PhotoImage(file="./img/logo.png")
@@ -37,7 +37,7 @@ class Frame(tk.Frame):
         lbl_img.grid(row=0, column=0, padx=10, pady=10, rowspan=3)
 
         self.label_nominst = tk.Label(self, text='Servicio Nacional\n de Aprendizaje ')
-        self.label_nominst.config(font=('Arial', 12, 'bold'), bg= '#A9DFBF')
+        self.label_nominst.config(font=('Arial', 12,), fg='green',bg= '#A9DFBF')
         self.label_nominst.grid(row=3, column=0, padx=10, pady=10)
 
         self.campos_usuarios()
@@ -47,32 +47,32 @@ class Frame(tk.Frame):
     def campos_usuarios(self):
         #label de cada campo
         self.label_nombre = tk.Label(self, text='Nombres: ')
-        self.label_nombre.config(font=('Arial', 12, 'bold'), bg= '#A9DFBF')
-        self.label_nombre.grid(row=1, column=1, padx=10, pady=10)
+        self.label_nombre.config(font=('Arial', 12), bg= '#A9DFBF')
+        self.label_nombre.grid(row=1, column=1, padx=10, pady=10, sticky="w")
 
         self.label_apellido = tk.Label(self, text='Apellidos: ')
-        self.label_apellido.config(font=('Arial', 12, 'bold'), bg= '#A9DFBF')
-        self.label_apellido.grid(row=2, column=1, padx=10, pady=10)
+        self.label_apellido.config(font=('Arial', 12), bg= '#A9DFBF')
+        self.label_apellido.grid(row=2, column=1, padx=10, pady=10, sticky="w")
 
         self.label_documento = tk.Label(self, text='Identificación: ')
-        self.label_documento.config(font=('Arial', 12, 'bold'), bg= '#A9DFBF')
-        self.label_documento.grid(row=3, column=1, padx=10, pady=10)
+        self.label_documento.config(font=('Arial', 12), bg= '#A9DFBF')
+        self.label_documento.grid(row=3, column=1, padx=10, pady=10, sticky="w")
 
          #Campos de entrada
         self.mi_nombre = tk.StringVar()
         self.entry_nombre = tk.Entry(self, textvariable=self.mi_nombre)
         self.entry_nombre.config(width=50, font=('Arial', 12), bg= '#EAFAF1')
-        self.entry_nombre.grid(row=1, column=2, padx=10, pady=10, columnspan=2)
+        self.entry_nombre.grid(row=1, column=2, padx=10, pady=10, columnspan=2, sticky="w")
 
         self.mi_apellido = tk.StringVar()
         self.entry_apellido = tk.Entry(self, textvariable=self.mi_apellido)
         self.entry_apellido.config(width=50,font=('Arial', 12), bg= '#EAFAF1')
-        self.entry_apellido.grid(row=2, column=2, padx=10, pady=10, columnspan=2)
+        self.entry_apellido.grid(row=2, column=2, padx=10, pady=10, columnspan=2, sticky="w")
 
         self.mi_documento = tk.StringVar()
         self.entry_documento = tk.Entry(self, textvariable=self.mi_documento)
         self.entry_documento.config(width=50, font=('Arial', 12), bg= '#EAFAF1')
-        self.entry_documento.grid(row=3, column=2, padx=10, pady=10, columnspan=2)
+        self.entry_documento.grid(row=3, column=2, padx=10, pady=10, columnspan=2, sticky="w")
 
         #Botones
 
@@ -140,15 +140,23 @@ class Frame(tk.Frame):
         #Recuperar la lista de peliculas
         self.lista_usuarios =listar()
         self.lista_usuarios.reverse()
+              
 
-        self.tabla = ttk.Treeview(self, columns=('Nombre', 'Apellidos', 'Documento'))       
+        self.tabla = ttk.Treeview(self, columns=('Nombre', 'Apellidos', 'Documento'))    
+              
+        self.tabla.grid(row=4, column=1, columnspan=4, rowspan=2, padx=20, pady=20, sticky='nsew')
+
         
-        self.tabla.grid(row=4, column=1, columnspan=4, rowspan=2, sticky='nse')
         #Scrollbar para la tabla si exede 10 registros
         self.scroll = ttk.Scrollbar(self,
         orient='vertical', command=self.tabla.yview)
         self.scroll.grid(row = 4, column=4, rowspan=2, sticky='nse')
         self.tabla.configure(yscrollcommand=self.scroll.set)
+
+        self.tabla.column('#0', width=50)
+        self.tabla.column('#1', width=200) 
+        self.tabla.column('#2', width=200)
+        self.tabla.column('#3', width=100)
 
         self.tabla.heading('#0', text='ID')
         self.tabla.heading('#1', text='Nombre')

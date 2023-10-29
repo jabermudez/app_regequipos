@@ -2,13 +2,16 @@ import tkinter as tk
 import customtkinter as ctk
 from usuarios.interfaz import Frame, barra_menu
 
+ctk.set_default_color_theme("green")
+ctk.set_default_color_theme("blue")
+
 def main():
     root = tk.Tk()
-    root.geometry("800x580+260+90")
+    root.geometry("800x580+260+9")  
     root.title('Registro de Equipos de Computo')
     root.iconbitmap('img/nuevo_logo.ico')
     root.resizable(0,0)
-    buttom = ctk.CTkButtom
+    
 
     barra_menu(root)
 

@@ -1,4 +1,5 @@
 import tkinter as tk
+import customtkinter as ctk
 from tkinter import ttk, messagebox
 from model.usuario_dao import crear_tabla, borrar_tabla
 from model.usuario_dao import Usuario, guardar, listar, editar, eliminar
@@ -21,7 +22,7 @@ def barra_menu(root):
 
 class Frame(tk.Frame):
     def __init__(self, root = None):
-        super().__init__(root, width=800, height=300)
+        super().__init__(root)
         self.root = root
         self.pack()
         self.config( bg='#FFA030')
@@ -30,7 +31,8 @@ class Frame(tk.Frame):
         self.label_tituloinst = tk.Label(self, text='REGISTRO DE USUARIOS')
         self.label_tituloinst.config(font=('Arial', 16, 'bold'),fg='#39A900', bg= '#FFA030')
         self.label_tituloinst.grid(row=0, column=0, columnspan=5, padx=10, pady=10)
-   
+
+
         self.img = tk.PhotoImage(file="./img/logo.png")
         self.img = self.img.subsample(3,3)
         lbl_img = tk.Label(self, bg='#FFA030', image = self.img)        

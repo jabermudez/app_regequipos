@@ -24,11 +24,11 @@ class Frame(tk.Frame):
         super().__init__(root, width=800, height=300)
         self.root = root
         self.pack()
-        self.config( bg='#FF8028')
+        self.config( bg='#FFA030')
         self.id_usuario = None
 
         self.label_tituloinst = tk.Label(self, text='REGISTRO DE USUARIOS')
-        self.label_tituloinst.config(font=('Arial', 16, 'bold'),fg='#000000', bg= '#FFA030')
+        self.label_tituloinst.config(font=('Arial', 16, 'bold'),fg='#39A900', bg= '#FFA030')
         self.label_tituloinst.grid(row=0, column=0, columnspan=5, padx=10, pady=10)
    
         self.img = tk.PhotoImage(file="./img/logo.png")
@@ -37,7 +37,7 @@ class Frame(tk.Frame):
         lbl_img.grid(row=0, column=0, padx=10, pady=10, rowspan=3)
 
         self.label_nominst = tk.Label(self, text='Servicio Nacional\n de Aprendizaje ')
-        self.label_nominst.config(font=('Arial', 12,), fg='#000000',bg= '#FFB043')
+        self.label_nominst.config(font=('Arial', 12,'bold'), fg='#000000',bg= '#FFA030')
         self.label_nominst.grid(row=3, column=0, padx=10, pady=10)
 
         self.campos_usuarios()
@@ -47,15 +47,15 @@ class Frame(tk.Frame):
     def campos_usuarios(self):
         #label de cada campo
         self.label_nombre = tk.Label(self, text='Nombres: ')
-        self.label_nombre.config(font=('Arial', 12),fg='#000000', bg= '#FFB043')
+        self.label_nombre.config(font=('Arial', 12),fg='#000000', bg= '#FFA030')
         self.label_nombre.grid(row=1, column=1, padx=10, pady=10, sticky="w")
 
         self.label_apellido = tk.Label(self, text='Apellidos: ')
-        self.label_apellido.config(font=('Arial', 12),fg='#000000', bg= '#FFB043')
+        self.label_apellido.config(font=('Arial', 12),fg='#000000', bg= '#FFA030')
         self.label_apellido.grid(row=2, column=1, padx=10, pady=10, sticky="w")
 
         self.label_documento = tk.Label(self, text='Identificación: ')
-        self.label_documento.config(font=('Arial', 12),fg='#000000', bg= '#FFB043')
+        self.label_documento.config(font=('Arial', 12),fg='#000000', bg= '#FFA030')
         self.label_documento.grid(row=3, column=1, padx=10, pady=10, sticky="w")
 
          #Campos de entrada
@@ -78,17 +78,17 @@ class Frame(tk.Frame):
 
         self.boton_nuevo = tk.Button(self, text="Nuevo", command=self.habilitar_campos)
         self.boton_nuevo.config(width=10, font=('Arial', 12, 'bold'),
-        fg='white', bg='green', cursor='hand2', activebackground='#35BD6F')
+        fg='white', bg='#39A900', cursor='hand2', activebackground='#35BD6F')
         self.boton_nuevo.grid(row=6, column=1, padx=5, pady=5)
 
         self.boton_guardar = tk.Button(self, text="Guardar", command=self.guardar_datos)
         self.boton_guardar.config(width=10, font=('Arial', 12, 'bold'),
-        fg='white', bg='#1658A2', cursor='hand2', activebackground='#35BD6F')
+        fg='white', bg='#1F69B3', cursor='hand2', activebackground='#35BD6F')
         self.boton_guardar.grid(row=6, column=2, padx=5, pady=5)
 
         self.boton_cancelar = tk.Button(self, text="Cancelar", command=self.deshabilitar_campos)
         self.boton_cancelar.config(width=10, font=('Arial', 12, 'bold'),
-        fg='white', bg='#BD122E', cursor='hand2', activebackground='#E15370')
+        fg='white', bg='#FF4949', cursor='hand2', activebackground='#E15370')
         self.boton_cancelar.grid(row=6, column=3, padx=5, pady=5)
 
     def habilitar_campos(self):
@@ -173,13 +173,13 @@ class Frame(tk.Frame):
         #Botón Editar
         self.boton_editar = tk.Button(self, text="Editar", command= self.editar_datos)
         self.boton_editar.config(width=15, font=('Arial', 12, 'bold'),
-        fg='white', bg='green', cursor='hand2', activebackground='#35BD6F')
+        fg='white', bg='#39A900', cursor='hand2', activebackground='#35BD6F')
         self.boton_editar.grid(row=4, column=0, rowspan=2, padx=5, pady=15)
 
         #Botón Eliminar
         self.boton_eliminar = tk.Button(self, text="Eliminar", command=self.eliminar_datos)
         self.boton_eliminar.config(width=15, font=('Arial', 12, 'bold'),
-        fg='white', bg='#BD122E', cursor='hand2', activebackground='#E15370')
+        fg='white', bg='#FF4949', cursor='hand2', activebackground='#E15370')
         self.boton_eliminar.grid(row=5, column=0, rowspan=2, padx=5, pady=15)
 
     def editar_datos(self):

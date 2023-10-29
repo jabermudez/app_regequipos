@@ -3,7 +3,8 @@ import ttkbootstrap as tb
 from usuarios.interfaz import Frame, barra_menu
 
 def main():
-    root = tk.Tk()
+    root = tb.Window(themename="morph")
+    #root = tk.Tk()
     root.geometry("800x580+260+9")  
     root.title('Registro de Equipos de Computo')
     root.iconbitmap('img/nuevo_logo.ico')

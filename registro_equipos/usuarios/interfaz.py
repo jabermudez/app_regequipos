@@ -1,5 +1,4 @@
 import tkinter as tk
-import customtkinter as ctk
 from tkinter import ttk, messagebox
 from model.usuario_dao import crear_tabla, borrar_tabla
 from model.usuario_dao import Usuario, guardar, listar, editar, eliminar

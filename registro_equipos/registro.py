@@ -1,9 +1,5 @@
 import tkinter as tk
-import customtkinter as ctk
 from usuarios.interfaz import Frame, barra_menu
-
-ctk.set_default_color_theme("green")
-ctk.set_default_color_theme("blue")
 
 def main():
     root = tk.Tk()

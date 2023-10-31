@@ -27,7 +27,7 @@ class Frame(tb.Frame):
         self.pack()        
         self.id_usuario = None
 
-        self.label_tituloinst = tb.Label(self, text='REGISTRO DE USUARIOS', font=('Arial', 16, 'bold'),bootstyle="success")
+        self.label_tituloinst = tb.Label(self, text='REGISTRO DE USUARIOS',  font=('Arial', 16, 'bold'),bootstyle="success")
         self.label_tituloinst.grid(row=0, column=0, columnspan=5, padx=10, pady=10)
 
 

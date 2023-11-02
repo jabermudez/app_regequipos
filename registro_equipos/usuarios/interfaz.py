@@ -196,3 +196,5 @@ class Frame(tb.Frame):
             titulo = 'Eliminar un Registro'
             mensaje = 'No ha seleccionado ningún registro'
             messagebox.showerror(titulo, mensaje)
+
+   

@@ -3,8 +3,7 @@ import ttkbootstrap as tb
 from ttkbootstrap.constants import *
 from tkinter import ttk, messagebox
 from model.usuario_dao import crear_tabla, borrar_tabla
-from model.usuario_dao import Usuario, guardar, listar, editar, eliminar
-
+from model.usuario_dao import Usuario, buscar
 
 def barra_menu(root):
     barra_menu = tb.Menu(root)
@@ -51,8 +50,8 @@ class Frame1(tb.Frame):
         self.label = tb.Label(root, padding=20, text='',font=('Arial', 12,'bold'), bootstyle="dark", background="#FFE4B5", width='12', anchor='center')
         self.label.grid(row=2, column=0)
         
-        self.boton_guardar = tb.Button(root, text="Verificar", width=15, bootstyle='secondary')
-        self.boton_guardar.grid(row=2, column=0, padx=5, pady=5)
+        
+        
         
         self.label = tb.Label(root, padding=20, text='',font=('Arial', 12,'bold'), bootstyle="dark", background="#FFE4B5", width='12', anchor='center')
         self.label.grid(row=4, column=0)
@@ -70,11 +69,41 @@ class Frame1(tb.Frame):
         self.label.grid(row=7, column=0,padx=0, pady=0)
         
         
+        self.label = tb.Label(root, padding=10, text='Ingrese Código del Usuario',font=('Arial', 12,'bold'), bootstyle="success", background="#FFE4B5", width='44', anchor='center')
+        self.label.grid(row=2, column=1, padx=0, pady=0)
+        
+        self.button_buscar = tb.Button(root, text="Verificar", width=15, bootstyle='secondary', command=self.buscar_datos)
+        self.button_buscar.grid(row=2, column=0, padx=5, pady=5)   
+        
+        self.label_informacion = tb.Label(root, text="", font=('Arial', 12,'bold'), bootstyle="success", background="#FFE4B5", width='44', anchor='center')
+        self.label_informacion.grid(row=5, column=1, padx=5, pady=5)          
+        
+        self.entry_nombre = tb.Entry(root)
+        self.entry_nombre.grid(row=3, column=1)
+        
+        
+        #Campos de entrada
         
     
+    def buscar_datos(self):
         
+        nombre = self.entry_nombre.get()            
+        self.nombre = ""              
+        usuario = buscar(nombre)        
+                
+        if usuario is not None:
         
+            self.nombre = usuario[1]
+            self.apellidos = usuario[2]
+            self.documento = usuario[3]
+                          
+    # Mostrar la información del usuario
         
+            self.label_informacion.config(text="Nombre: %s\nApellidos: %s\nDocumento: %s" % (self.nombre, self.apellidos, self.documento))
+        else: 
+            self.label_informacion.config(text="El usuario no se encuentra en la base de datos")
+            
+            
         
         
         

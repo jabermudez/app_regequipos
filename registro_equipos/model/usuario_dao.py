@@ -1,6 +1,7 @@
 from .conexion_db import ConexionDB
 from tkinter import messagebox
 
+
 def crear_tabla():
     conexion = ConexionDB()
 
@@ -107,3 +108,26 @@ def eliminar(id_usuario):
         titulo = 'Eliminar datos'
         mensaje = 'No se pudo eliminar este registro'
         messagebox.showerror(titulo, mensaje)
+
+def buscar(nombre):
+    conexion = ConexionDB()    
+        
+    # Consultar la base de datos
+    conexion.cursor.execute("SELECT * FROM usuarios WHERE nombre = ?", (nombre,))
+    
+    usuario = conexion.cursor.fetchone()    
+    conexion.cerrar()
+    
+    return usuario
+    
+    
+   
+    
+    
+    
+    
+    
+        
+    
+
+    

@@ -27,59 +27,55 @@ class Frame1(tb.Frame):
         self.id_usuario = None
 
         self.img = tk.PhotoImage(file="./img/logo.png")
-        self.img = self.img.subsample(4,4)
-        lbl_img = tb.Label(root, padding=18, background="#FFE4B5",   image = self.img)        
+        self.img = self.img.subsample(3,3)
+        lbl_img = tb.Label(root, padding=18, image = self.img)        
         lbl_img.grid(row=0, column=0, padx=0, pady=0)
         
-        self.label = tb.Label(root, padding=43, text='Servicio Nacional de Aprendizaje\n          Préstamo Equipos',font=('Arial', 18,'bold'), bootstyle="success", background="#FFE4B5", width='44', anchor='center')
+        
+        self.label = tb.Label(root, text='Servicio Nacional de Aprendizaje\n         Centro Agroindustrial',font=('Arial', 18,'bold'), bootstyle="success", anchor='center')
         self.label.grid(row=0, column=1, padx=0, pady=0)
         
-        self.label = tb.Label(root, padding=20, text='',font=('Arial', 12,'bold'), bootstyle="dark", background="#FFE4B5", width='12', anchor='center')
-        self.label.grid(row=1, column=0,padx=0, pady=0)
+        #self.label = tb.Label(root, text='Préstamo Equipos',font=('Arial', 14), bootstyle="success", anchor='center')
+        #self.label.grid(row=1, column=1, padx=0, pady=0)
         
+      
+        self.label = tb.Label(root, padding=10, text='Código Usuario',font=('Arial', 12,'bold'), bootstyle="dark",  anchor='center')
+        self.label.grid(row=2, column=0, padx=0, pady=0)
+                   
+        self.label_informacion = tb.Label(root, text="", bootstyle="inverse-danger")
+        self.label_informacion.grid(row=4, column=1, padx=10, pady=10)
         
-        self.label = tb.Label(root, padding=20, text='',font=('Arial', 12,'bold'), bootstyle="dark", background="#FFE4B5", width='12', anchor='center')
-        self.label.grid(row=2, column=0)
-               
-        self.label = tb.Label(root, padding=20, text='',font=('Arial', 12,'bold'), bootstyle="dark", background="#FFE4B5", width='12', anchor='center')
-        self.label.grid(row=3, column=0)
+        #Botones
+        #style botones
         
-        self.boton_guardar = tb.Button(root, text="Prestar", width=15, bootstyle='info')
-        self.boton_guardar.grid(row=3, column=0, padx=5, pady=5)
+        my_style = tb.Style()        
+        my_style.configure('primary.TButton', font=("Roboto",12))
+        my_style.configure('info.TButton', font=("Roboto",12))
+        my_style.configure('danger.TButton', font=("Roboto",12))
+        
+        self.button_verificar = tb.Button(root, text="Verificar", 
+            bootstyle='primary',
+            style="primary.Tbutton",
+            width=12, 
+            command=self.buscar_datos)
+        self.button_verificar.grid(row=4, column=0, padx=10, pady=10)   
+        
+        self.boton_prestar = tb.Button(root, text="Prestar", 
+            bootstyle='info',
+            style="info.Tbutton",
+            width=12)
+        self.boton_prestar.grid(row=3, column=1,padx=10, pady=10)
 
-        self.label = tb.Label(root, padding=20, text='',font=('Arial', 12,'bold'), bootstyle="dark", background="#FFE4B5", width='12', anchor='center')
-        self.label.grid(row=2, column=0)
         
+        self.boton_cerrar = tb.Button(root, text="Cerrar", 
+            bootstyle='danger',
+            style="danger.Tbutton",
+            width=12)
+        self.boton_cerrar.grid(row=4, column=1,padx=10, pady=10)
         
-        
-        
-        self.label = tb.Label(root, padding=20, text='',font=('Arial', 12,'bold'), bootstyle="dark", background="#FFE4B5", width='12', anchor='center')
-        self.label.grid(row=4, column=0)
-        
-        self.boton_guardar = tb.Button(root, text="cerrar", width=15, bootstyle='danger')
-        self.boton_guardar.grid(row=4, column=0, padx=5, pady=5)
-              
-        self.label = tb.Label(root, padding=20, text='',font=('Arial', 12,'bold'), bootstyle="dark", background="#FFE4B5", width='12', anchor='center')
-        self.label.grid(row=5, column=0,padx=0, pady=0)
-        
-        self.label = tb.Label(root, padding=20, text='',font=('Arial', 12,'bold'), bootstyle="dark", background="#FFE4B5", width='12', anchor='center')
-        self.label.grid(row=6, column=0,padx=0, pady=0)
-        
-        self.label = tb.Label(root, padding=20, text='',font=('Arial', 12,'bold'), bootstyle="dark", background="#FFE4B5", width='12', anchor='center')
-        self.label.grid(row=7, column=0,padx=0, pady=0)
-        
-        
-        self.label = tb.Label(root, padding=10, text='Ingrese Código del Usuario',font=('Arial', 12,'bold'), bootstyle="success", background="#FFE4B5", width='44', anchor='center')
-        self.label.grid(row=2, column=1, padx=0, pady=0)
-        
-        self.button_buscar = tb.Button(root, text="Verificar", width=15, bootstyle='secondary', command=self.buscar_datos)
-        self.button_buscar.grid(row=2, column=0, padx=5, pady=5)   
-        
-        self.label_informacion = tb.Label(root, text="", font=('Arial', 12,'bold'), bootstyle="success", background="#FFE4B5", width='44', anchor='center')
-        self.label_informacion.grid(row=5, column=1, padx=5, pady=5)          
-        
+        #Entradas
         self.entry_nombre = tb.Entry(root)
-        self.entry_nombre.grid(row=3, column=1)
+        self.entry_nombre.grid(row=3, column=0, padx=10, pady=10)
         
         
         #Campos de entrada

@@ -1,11 +1,11 @@
 import tkinter as tk
 import ttkbootstrap as tb
-from usuarios.interfaz import Frame, barra_menu
+from usuarios.interfaz2 import Frame1, barra_menu
 
 def main():
     root = tb.Window(themename="morph")
     #root = tk.Tk()
-    root.geometry("800x580+260+9")  
+    root.geometry("700x580+260+9")  
     root.title('Registro de Equipos de Computo')
     root.iconbitmap('img/nuevo_logo.ico')
     root.resizable(0,0)
@@ -13,7 +13,7 @@ def main():
 
     barra_menu(root)
 
-    app = Frame(root = root)
+    app = Frame1(root = root)
 
     app.mainloop()
 

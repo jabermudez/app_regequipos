@@ -96,7 +96,7 @@ class Frame1(tb.Frame):
                           
     # Mostrar la información del usuario
         
-            self.label_informacion.config (text="Nombre: %s\nApellidos: %s\nDocumento: %s" % (self.nombre, self.apellidos, self.documento))
+            self.label_informacion.config (text="Nombre: %s  %s\nDocumento: %s" % (self.nombre, self.apellidos, self.documento))
         else: 
             self.label_informacion.config(text="El usuario no se encuentra en la base de datos")
             

@@ -39,43 +39,44 @@ class Frame1(tb.Frame):
         #self.label.grid(row=1, column=1, padx=0, pady=0)
         
       
-        self.label = tb.Label(root, padding=10, text='Código Usuario',font=('Arial', 12,'bold'), bootstyle="dark",  anchor='center')
+        self.label = tb.Label(root, padding=10, text='Código Usuario',font=('Arial', 14,'bold'), bootstyle="dark",  anchor='center')
         self.label.grid(row=2, column=0, padx=0, pady=0)
                    
-        self.label_informacion = tb.Label(root, text="", bootstyle="inverse-danger")
+        self.label_informacion = tb.Label(root, text="", font=('Roboto', 16,'bold'))
         self.label_informacion.grid(row=4, column=1, padx=10, pady=10)
+        
         
         #Botones
         #style botones
         
         my_style = tb.Style()        
-        my_style.configure('primary.TButton', font=("Roboto",12))
-        my_style.configure('info.TButton', font=("Roboto",12))
-        my_style.configure('danger.TButton', font=("Roboto",12))
+        my_style.configure('primary.TButton', font=("Roboto",16))
+        my_style.configure('info.TButton', font=("Roboto",16))
+        my_style.configure('danger.TButton', font=("Roboto",16))
         
         self.button_verificar = tb.Button(root, text="Verificar", 
             bootstyle='primary',
             style="primary.Tbutton",
             width=12, 
             command=self.buscar_datos)
-        self.button_verificar.grid(row=4, column=0, padx=10, pady=10)   
+        self.button_verificar.grid(row=4, column=0, ipadx=5, ipady=15,padx=10, pady=10)   
         
         self.boton_prestar = tb.Button(root, text="Prestar", 
             bootstyle='info',
             style="info.Tbutton",
             width=12)
-        self.boton_prestar.grid(row=3, column=1,padx=10, pady=10)
+        self.boton_prestar.grid(row=5, column=0,ipadx=5, ipady=15, padx=10, pady=10)
 
         
         self.boton_cerrar = tb.Button(root, text="Cerrar", 
             bootstyle='danger',
             style="danger.Tbutton",
             width=12)
-        self.boton_cerrar.grid(row=4, column=1,padx=10, pady=10)
+        self.boton_cerrar.grid(row=6, column=0,ipadx=5, ipady=15, padx=10, pady=10)
         
         #Entradas
-        self.entry_nombre = tb.Entry(root)
-        self.entry_nombre.grid(row=3, column=0, padx=10, pady=10)
+        self.entry_nombre = tb.Entry(root, font=('Arial', 11), bootstyle='secondary')
+        self.entry_nombre.grid(row=3, column=0, padx=5, pady=5)
         
         
         #Campos de entrada
@@ -95,7 +96,7 @@ class Frame1(tb.Frame):
                           
     # Mostrar la información del usuario
         
-            self.label_informacion.config(text="Nombre: %s\nApellidos: %s\nDocumento: %s" % (self.nombre, self.apellidos, self.documento))
+            self.label_informacion.config (text="Nombre: %s\nApellidos: %s\nDocumento: %s" % (self.nombre, self.apellidos, self.documento))
         else: 
             self.label_informacion.config(text="El usuario no se encuentra en la base de datos")
             

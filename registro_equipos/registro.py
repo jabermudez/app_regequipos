@@ -5,7 +5,7 @@ from usuarios.interfaz2 import Frame1, barra_menu
 def main():
     root = tb.Window(themename="morph")
     #root = tk.Tk()
-    root.geometry("800x680+260+9")  
+    root.geometry("900x700+260+9")  
     root.title('Registro de Equipos de Computo')
     root.iconbitmap('img/nuevo_logo.ico')
     root.resizable(0,0)

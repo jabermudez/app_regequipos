@@ -27,30 +27,23 @@ class Frame1(tb.Frame):
         self.root = root                        
         self.id_usuario = None
         
-        self.logo_img = tk.PhotoImage(name='logo', file="./img/logo.png")
-                
-               
-        self.header = tb.Frame(root,bootstyle="success", height=120, width=800)
-        self.header.grid(row=0, column=3, columnspan=3, sticky='ew')
         
-        self.label = tb.Label(self.header, image='logo', style='header.TLabel').pack(side='left')
-        self.logo_img = self.logo_img.subsample(3,3)
-        logo_text = ttk.Label(self.header, text='Servicio Nacional de Aprendizaje\n         Centro Agroindustrial',
-                              font=('Arial', 18,'bold'), style='header.TLabel')
-        logo_text.pack(side='left', padx=10)
-                               
         
-        '''
+        
         self.img = tk.PhotoImage(file="./img/logo.png")
-        self.img = self.img.subsample(3,3)
-        lbl_img = tb.Label(root, padding=18, image = self.img)        
-        lbl_img.grid(row=0, column=0, padx=0, pady=0)
-        '''
+        self.img = self.img.subsample(2,2)
+        lbl_img = tb.Label(root,  image = self.img)        
+        lbl_img.grid(row=0, column=0, padx=0, pady=0, ipadx=5, ipady=15,)
+                    
+                
+        self.label = tb.Label(root, text='Servicio Nacional de Aprendizaje\n         Centro Agroindustrial',font=('Arial', 18,'bold'), bootstyle="succees", anchor='center')
+        #self.lbl.configure(background='#39A900')        
+        self.label.grid(row=0, column=1, columnspan=3, padx=0, pady=0, ipadx=5, ipady=15,)
+                  
         
         
-        
-        #self.label = tb.Label(root, text='Préstamo Equipos',font=('Arial', 14), bootstyle="success", anchor='center')
-        #self.label.grid(row=1, column=1, padx=0, pady=0)
+        self.label = tb.Label(root, text='Préstamo Equipos',font=('Arial', 14), bootstyle="success", anchor='center')
+        self.label.grid(row=1, column=2, columnspan=3, padx=0, pady=0)
            
       
         self.label = tb.Label(root, padding=10, text='Código Usuario',font=('Arial', 14,'bold'), bootstyle="dark",  anchor='center')

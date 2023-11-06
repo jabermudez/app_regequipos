@@ -8,9 +8,13 @@ def crear_tabla():
     sql = '''
     CREATE TABLE usuarios(
         id_usuario INTEGER,
+        codigo INTEGER,
         nombre VARCHAR(100),
         apellidos VARCHAR(100),
         documento INTEGER,
+        ficha VARCHAR(50),
+        correo VARCHAR(100),
+        celular INTEGER,
         PRIMARY KEY(id_usuario AUTOINCREMENT)
     )'''
 
@@ -42,20 +46,24 @@ def borrar_tabla():
         messagebox.showerror(titulo, mensaje)
 
 class Usuario:
-    def __init__(self, nombre, apellidos, documento):
+    def __init__(self, codigo, nombre, apellidos, documento, ficha,correo,celular):
         self.id_usuario = None
+        self.codigo = codigo
         self.nombre = nombre
         self.apellido = apellidos
         self.documento = documento
+        self.ficha = ficha
+        self.correo = correo
+        self.celular = celular
     
     def __str__(self):
-        return f'Usuario[{self.nombre}, {self.apellido}, {self.documento}]'
+        return f'Usuario[{self.codigo},{self.nombre}, {self.apellido}, {self.documento},{self.ficha},{self.correo},{self.celular}]'
 
 def guardar(usuario):
     conexion = ConexionDB()
 
-    sql =f"""INSERT INTO usuarios (nombre, apellidos, documento)
-    VALUES('{usuario.nombre}','{usuario.apellido}', {usuario.documento})"""
+    sql =f"""INSERT INTO usuarios (codigo, nombre, apellidos, documento, ficha, correo, celular)
+    VALUES({usuario.codigo},'{usuario.nombre}','{usuario.apellido}', {usuario.documento}, '{usuario.ficha}','{usuario.correo}',{usuario.celular},)"""
 
     try:
         conexion.cursor.execute(sql)
@@ -87,7 +95,7 @@ def editar(usuario, id_usuario):
     conexion = ConexionDB()
 
     sql = f"""UPDATE usuarios 
-    SET nombre ='{usuario.nombre}', apellidos ='{usuario.apellido}', documento = {usuario.documento} WHERE id_usuario = {id_usuario}"""
+    SET codigo = {usuario.codigo}, nombre ='{usuario.nombre}', apellidos ='{usuario.apellido}', documento = {usuario.documento},  ficha ='{usuario.ficha}', correo ='{usuario.correo}', celular ={usuario.celular}, WHERE id_usuario = {id_usuario}"""
 
     try:
         conexion.cursor.execute(sql)
@@ -109,11 +117,11 @@ def eliminar(id_usuario):
         mensaje = 'No se pudo eliminar este registro'
         messagebox.showerror(titulo, mensaje)
 
-def buscar(nombre):
+def buscar(codigo):
     conexion = ConexionDB()    
         
     # Consultar la base de datos
-    conexion.cursor.execute("SELECT * FROM usuarios WHERE nombre = ?", (nombre,))
+    conexion.cursor.execute("SELECT * FROM usuarios WHERE codigo = ?", (codigo,))
     
     usuario = conexion.cursor.fetchone()    
     conexion.cerrar()

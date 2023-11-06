@@ -43,7 +43,7 @@ class Frame1(tb.Frame):
          
         self.label = tb.Label(root, text='Préstamo Equipos',font=('Arial', 20, 'bold'), anchor='center')
         self.label.configure(foreground='#1464f6')
-        self.label.grid(row=1, column=0, columnspan=4,  padx=20, pady=20, ipadx=10, sticky='w')
+        self.label.grid(row=1, column=0, columnspan=4, padx=20, pady=20, ipadx=10, sticky='w')
            
       
         self.label = tb.Label(root, padding=10, text='Código Usuario',font=('Arial', 14,'bold'), bootstyle="dark",  anchor='center')
@@ -54,10 +54,9 @@ class Frame1(tb.Frame):
         
         self.label_informacion = tb.Label(root, text="", font=('Roboto', 12,'bold'), anchor='center')
         self.label_informacion.configure(foreground='#1464f6')
-        self.label_informacion.grid(row=4, column=0, rowspan=2, columnspan=2, padx=10, pady=10, ipadx=90, ipady=90)
+        self.label_informacion.grid(row=4, column=0, rowspan=2, columnspan=2, padx=10, pady=10, ipadx=80, ipady=80)
       
         
-      
       
         #Botones
         #style botones
@@ -86,15 +85,15 @@ class Frame1(tb.Frame):
             bootstyle='danger',
             style="danger.Tbutton",
             width=12)
-        self.boton_cerrar.grid(row=4, column=2, columnspan=2, ipadx=5, ipady=15, padx=10, pady=10)
+        self.boton_cerrar.grid(row=4, column=2, columnspan=2, ipadx=5, ipady=15, padx=20, pady=20)
         
         #Entradas
         
         self.entry_codigo = tb.Entry(root, font=('Arial', 11), bootstyle='secondary')
-        self.entry_codigo.grid(row=2, column=1, padx=5, pady=5)
+        self.entry_codigo.grid(row=2, column=1, padx=0, pady=5)
         
         self.entry_equipo = tb.Entry(root, font=('Arial', 11), bootstyle='secondary')
-        self.entry_equipo.grid(row=2, column=3, padx=5, pady=5)
+        self.entry_equipo.grid(row=2, column=3, padx=0, pady=5)
        
        
        

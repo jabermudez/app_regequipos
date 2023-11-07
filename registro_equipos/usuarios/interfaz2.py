@@ -27,10 +27,9 @@ class Frame1(tb.Frame):
         self.root = root                        
         self.id_usuario = None
         
-        
-        
+           
         self.label = tb.Label(root, text='Servicio Nacional de Aprendizaje\n        \n          Centro Agroindustrial',font=('Arial', 18,'bold'), bootstyle='light', anchor='center')
-        self.label.configure(background='#1464f6', width='69')        
+        self.label.configure(background='#1464f6', width='65')        
         self.label.grid(row=0, column=0, columnspan=4, padx=0, pady=0, ipady=30)
         
         
@@ -41,23 +40,28 @@ class Frame1(tb.Frame):
         self.lbl_img.grid(row=0, column=0, padx=20, pady=0, ipadx=10, sticky='w')
                     
          
-        self.label = tb.Label(root, text='Préstamo Equipos',font=('Arial', 20, 'bold'), anchor='center')
+        self.label = tb.Label(root, text='Préstamo Equipos',font=('Arial', 20, 'bold'))
         self.label.configure(foreground='#1464f6')
-        self.label.grid(row=1, column=0, columnspan=4, padx=20, pady=20, ipadx=10, sticky='w')
+        self.label.grid(row=1, column=0, columnspan=2, padx=20, pady=20, ipadx=10, sticky='w')
            
       
-        self.label = tb.Label(root, padding=10, text='Código Usuario',font=('Arial', 14,'bold'), bootstyle="dark",  anchor='center')
-        self.label.grid(row=2, column=0, padx=0, pady=0)
+        self.label = tb.Label(root, text='Código Usuario',font=('Arial', 12,'bold'), bootstyle="dark")
+        self.label.grid(row=2, column=0, columnspan=2, padx=30,  pady=20,  sticky='w')
+        
                    
-        self.label = tb.Label(root, padding=10, text='# Equipos',font=('Arial', 14,'bold'), bootstyle="dark",  anchor='center')
-        self.label.grid(row=2, column=2, padx=0, pady=0)           
+        self.label = tb.Label(root, text='# Equipo',font=('Arial', 12,'bold'), bootstyle="dark")
+        self.label.grid(row=2, column=2, padx=20, pady=20, sticky='e')           
         
-        self.label_informacion = tb.Label(root, text="", font=('Roboto', 12,'bold'), anchor='center')
-        self.label_informacion.configure(foreground='#1464f6')
-        self.label_informacion.grid(row=4, column=0, rowspan=2, columnspan=2, padx=10, pady=10, ipadx=80, ipady=80)
-      
         
-      
+        self.label_informacion = tb.Label(root, text="", font=('Roboto', 12, 'bold'),  anchor='center')
+        self.label_informacion.configure(foreground='#1464f6', width='29')
+        self.label_informacion.grid(row=4, column=0, columnspan=2, padx=20, pady=20, ipady=10, sticky='nsew')
+        
+        self.img1 = tk.PhotoImage(file="./img/user.png")
+        self.img1 = self.img1.subsample(3,3)
+        self.lbl_img1 = tb.Label(root,  image = self.img1)                    
+        self.lbl_img1.grid(row=4, column=0, columnspan=2, padx=120, pady=10, sticky='nsew')
+        
         #Botones
         #style botones
         
@@ -72,28 +76,28 @@ class Frame1(tb.Frame):
             style="primary.Tbutton",
             width=12, 
             command=self.buscar_datos)
-        self.button_verificar.grid(row=3, column=0,columnspan=2, ipadx=5, ipady=15,padx=20, pady=20)   
+        self.button_verificar.grid(row=3, column=0,columnspan=2,pady=15, ipadx=5, ipady=15)   
         
         self.boton_prestar = tb.Button(root, text="Prestar", 
             bootstyle='info',
             style="info.Tbutton",
             width=12)
-        self.boton_prestar.grid(row=3, column=2, columnspan=2, ipadx=5, ipady=15, padx=20, pady=20)
+        self.boton_prestar.grid(row=3, column=2, columnspan=2, pady=15, ipadx=5, ipady=15)
 
-        
+        '''
         self.boton_cerrar = tb.Button(root, text="Cerrar", 
             bootstyle='danger',
             style="danger.Tbutton",
             width=12)
-        self.boton_cerrar.grid(row=4, column=2, columnspan=2, ipadx=5, ipady=15, padx=20, pady=20)
-        
+        self.boton_cerrar.grid(row=4, column=2, columnspan=2, ipadx=5, ipady=15)
+        '''
         #Entradas
         
         self.entry_codigo = tb.Entry(root, font=('Arial', 11), bootstyle='secondary')
-        self.entry_codigo.grid(row=2, column=1, padx=0, pady=5)
+        self.entry_codigo.grid(row=2, column=0, columnspan=2, padx=0, pady=20, ipadx=0, sticky='e')
         
         self.entry_equipo = tb.Entry(root, font=('Arial', 11), bootstyle='secondary')
-        self.entry_equipo.grid(row=2, column=3, padx=0, pady=5)
+        self.entry_equipo.grid(row=2, column=3,  padx=(0, 20), pady=5, sticky='w')
        
        
        
@@ -116,11 +120,19 @@ class Frame1(tb.Frame):
             self.correo = usuario[6]
             self.celular = usuario[7]
                           
-    # Mostrar la información del usuario
+            # Mostrar la información del usuario
         
-            self.label_informacion.config (text="Código: %s\nNombre: %s  %s\nDocumento: %s\nFicha: %s\nCorreo Electrónico: %s\nCelular: %s" % (self.codigo, self.nombre, self.apellidos, self.documento,self.ficha,self.correo,self.celular))
+            self.label_informacion.config (text="Código: %s\nNombre: %s  %s\nDocumento: %s\nFicha: %s\nCorreo Electrónico: %s\nCelular: %s" % (self.codigo, self.nombre, self.apellidos, self.documento,self.ficha,self.correo,self.celular),
+            
+                image=''  # Esto elimina la imagen del label
+            )
+            self.lbl_img1.grid_remove()  # Esto oculta la imagen sin eliminarla del layout
+        
         else: 
-            self.label_informacion.config(text="El usuario no se encuentra en la base de datos")
+            
+            # Si no hay datos para el usuario, mostramos el mensaje y volvemos a mostrar la imagen
+            self.label_informacion.config(text="El usuario no se encuentra \nen la base de datos", image='')
+            self.lbl_img1.grid_remove()  # Esto vuelve a mostrar la imagen
             
             
         

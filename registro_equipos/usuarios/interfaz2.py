@@ -1,11 +1,13 @@
 import tkinter as tk
 import ttkbootstrap as tb
-from ttkbootstrap import Style
+from ttkbootstrap import *
 from ttkbootstrap.constants import *
 from tkinter import ttk, messagebox
 from model.usuario_dao import crear_tabla, borrar_tabla
 from model.usuario_dao import Usuario, buscar
 
+
+#Barra Menù Superior 
 def barra_menu(root):
     barra_menu = tb.Menu(root)
     root.config(menu = barra_menu)
@@ -29,8 +31,8 @@ class Frame1(tb.Frame):
         
            
         self.label = tb.Label(root, text='Servicio Nacional de Aprendizaje\n        \n          Centro Agroindustrial',font=('Arial', 18,'bold'), bootstyle='light', anchor='center')
-        self.label.configure(background='#1464f6', width='65')        
-        self.label.grid(row=0, column=0, columnspan=4, padx=0, pady=0, ipady=30)
+        self.label.configure(background='#1464f6', width=93)        
+        self.label.grid(row=0, column=0, columnspan=6, padx=0, pady=0, ipady=30)
         
         
         self.img = tk.PhotoImage(file="./img/logo1.png")
@@ -46,11 +48,11 @@ class Frame1(tb.Frame):
            
       
         self.label = tb.Label(root, text='Código Usuario',font=('Arial', 12,'bold'), bootstyle="dark")
-        self.label.grid(row=2, column=0, columnspan=2, padx=30,  pady=20,  sticky='w')
+        self.label.grid(row=2, column=0,  padx=30,  pady=30,  sticky='e')
         
                    
         self.label = tb.Label(root, text='# Equipo',font=('Arial', 12,'bold'), bootstyle="dark")
-        self.label.grid(row=2, column=2, padx=20, pady=20, sticky='e')           
+        self.label.grid(row=2, column=2, padx=20, pady=30, sticky='e')           
         
         
         self.label_informacion = tb.Label(root, text="", font=('Roboto', 12, 'bold'),  anchor='center')
@@ -60,7 +62,7 @@ class Frame1(tb.Frame):
         self.img1 = tk.PhotoImage(file="./img/user.png")
         self.img1 = self.img1.subsample(3,3)
         self.lbl_img1 = tb.Label(root,  image = self.img1)                    
-        self.lbl_img1.grid(row=4, column=0, columnspan=2, padx=120, pady=10, sticky='nsew')
+        self.lbl_img1.grid(row=4, column=0, columnspan=2, padx=120, pady=15)
         
         #Botones
         #style botones
@@ -74,14 +76,14 @@ class Frame1(tb.Frame):
         self.button_verificar = tb.Button(root, text="Verificar", 
             bootstyle='primary',
             style="primary.Tbutton",
-            width=12, 
+            width=20, 
             command=self.buscar_datos)
-        self.button_verificar.grid(row=3, column=0,columnspan=2,pady=15, ipadx=5, ipady=15)   
+        self.button_verificar.grid(row=3, column=0, columnspan=2, pady=15, ipady=15)   
         
         self.boton_prestar = tb.Button(root, text="Prestar", 
             bootstyle='info',
             style="info.Tbutton",
-            width=12)
+            width=20)
         self.boton_prestar.grid(row=3, column=2, columnspan=2, pady=15, ipadx=5, ipady=15)
 
         '''
@@ -94,13 +96,12 @@ class Frame1(tb.Frame):
         #Entradas
         
         self.entry_codigo = tb.Entry(root, font=('Arial', 11), bootstyle='secondary')
-        self.entry_codigo.grid(row=2, column=0, columnspan=2, padx=0, pady=20, ipadx=0, sticky='e')
+        self.entry_codigo.grid(row=2, column=1, padx=0, pady=20, ipadx=0, sticky='w')
         
         self.entry_equipo = tb.Entry(root, font=('Arial', 11), bootstyle='secondary')
         self.entry_equipo.grid(row=2, column=3,  padx=(0, 20), pady=5, sticky='w')
        
-       
-       
+             
         #Campos de entrada
         
     

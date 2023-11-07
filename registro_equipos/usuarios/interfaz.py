@@ -129,31 +129,39 @@ class Frame(tb.Frame):
         self.lista_usuarios.reverse()
               
         #Definir columnas        
-        self.tabla = ttk.Treeview(self, columns=('Nombre', 'Apellidos', 'Documento'),bootstyle="dark")              
-        self.tabla.grid(row=4, column=1, columnspan=4, rowspan=2, padx=20, pady=20, sticky='nsew')
+        self.tabla = ttk.Treeview(self, columns=('Código','Nombres', 'Apellidos', 'Documento','Ficha','Correo','Celular' ),bootstyle="dark")              
+        self.tabla.grid(row=4, column=1, columnspan=7, rowspan=2, padx=20, pady=20, sticky='nsew')
 
         
         #Scrollbar para la tabla si exede 10 registros
         self.scroll = tk.Scrollbar(self,
         orient='vertical', command=self.tabla.yview)
-        self.scroll.grid(row = 4, column=4, rowspan=2, sticky='nse')
+        self.scroll.grid(row = 4, column=7, rowspan=2, sticky='nse')
         self.tabla.configure(yscrollcommand=self.scroll.set)
 
         self.tabla.column('#0', width=50)
-        self.tabla.column('#1', width=200) 
-        self.tabla.column('#2', width=200)
+        self.tabla.column('#1', width=50) 
+        self.tabla.column('#2', width=100)
         self.tabla.column('#3', width=100)
+        self.tabla.column('#4', width=100)
+        self.tabla.column('#5', width=50)
+        self.tabla.column('#6', width=100)
+        self.tabla.column('#7', width=80)
 
         self.tabla.heading('#0', text='ID')
-        self.tabla.heading('#1', text='Nombre')
-        self.tabla.heading('#2', text='Apellidos')
-        self.tabla.heading('#3', text='Documento')
+        self.tabla.heading('#1', text='Codigo')
+        self.tabla.heading('#2', text='Nombres')
+        self.tabla.heading('#3', text='Apellidos')
+        self.tabla.heading('#4', text='Documento')
+        self.tabla.heading('#5', text='Ficha')
+        self.tabla.heading('#6', text='Correo')
+        self.tabla.heading('#7', text='Celular')
 
 
         #Iterar la lista de usuarios
 
         for u in self.lista_usuarios:
-            self.tabla.insert('',0, text=u[0], values=(u[1], u[2], u[3]))
+            self.tabla.insert('',0, text=u[0], values=(u[1], u[2], u[3],u[4],u[5],u[6],u[7]))
 
 
         #Botón Editar
@@ -167,9 +175,13 @@ class Frame(tb.Frame):
     def editar_datos(self):
         try:
             self.id_usuario = self.tabla.item(self.tabla.selection())['text']
-            self.nombre_usuario =self.tabla.item(self.tabla.selection())['values'][0]
-            self.apellido_usuario =self.tabla.item(self.tabla.selection())['values'][1]
-            self.documento_usuario =self.tabla.item(self.tabla.selection())['values'][2]
+            self.codigo_usuario =self.tabla.item(self.tabla.selection())['values'][0]
+            self.nombre_usuario =self.tabla.item(self.tabla.selection())['values'][1]            
+            self.apellido_usuario =self.tabla.item(self.tabla.selection())['values'][2]
+            self.documento_usuario =self.tabla.item(self.tabla.selection())['values'][3]
+            self.ficha_usuario =self.tabla.item(self.tabla.selection())['values'][4]
+            self.correo_usuario =self.tabla.item(self.tabla.selection())['values'][5]
+            self.celular_usuario =self.tabla.item(self.tabla.selection())['values'][6]
 
             self.habilitar_campos()
 

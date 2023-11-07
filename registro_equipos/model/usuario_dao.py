@@ -1,6 +1,7 @@
 from .conexion_db import ConexionDB
 from tkinter import messagebox
 
+#Crea la tabla usuarios desde el aplicativo
 
 def crear_tabla():
     conexion = ConexionDB()
@@ -29,6 +30,7 @@ def crear_tabla():
         mensaje = 'La tabla ya existe'
         messagebox.showwarning(titulo, mensaje)
 
+#Permite borrar la tabla usuarios desde el aplicativo
 def borrar_tabla():
     conexion = ConexionDB()
 
@@ -45,6 +47,7 @@ def borrar_tabla():
         mensaje = 'No hay tabla para eliminar'
         messagebox.showerror(titulo, mensaje)
 
+#Se crea la clase usuario, a travès de esta se generaràn las diferentes funciones del CRUD
 class Usuario:
     def __init__(self, codigo, nombre, apellidos, documento, ficha,correo,celular):
         self.id_usuario = None

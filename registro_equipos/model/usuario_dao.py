@@ -16,6 +16,7 @@ def crear_tabla():
         ficha VARCHAR(50),
         correo VARCHAR(100),
         celular INTEGER,
+        codigo_equipo FOREIGN KEY (codigo_equipo) REFERENCES equipos(codigo_equipo),
         PRIMARY KEY(id_usuario AUTOINCREMENT)
     )'''
 

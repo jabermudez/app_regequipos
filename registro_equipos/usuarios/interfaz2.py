@@ -3,8 +3,8 @@ import ttkbootstrap as tb
 from ttkbootstrap import *
 from ttkbootstrap.constants import *
 from tkinter import ttk, messagebox
-from model.usuario_dao import crear_tabla, borrar_tabla
-from model.usuario_dao import Usuario, buscar
+from model.usuario_dao import crear_tabla, borrar_tabla,buscar, buscareq
+from model.usuario_dao import Usuario, Equipo
 
 
 #Barra Menù Superior 
@@ -28,6 +28,7 @@ class Frame1(tb.Frame):
         super().__init__(root)
         self.root = root                        
         self.id_usuario = None
+        self.id_equipo = None
         
            
         self.label = tb.Label(root, text='Servicio Nacional de Aprendizaje\n        \n          Centro Agroindustrial',font=('Arial', 18,'bold'), bootstyle='light', anchor='center')
@@ -64,6 +65,23 @@ class Frame1(tb.Frame):
         self.lbl_img1 = tb.Label(root,  image = self.img1)                    
         self.lbl_img1.grid(row=4, column=0, columnspan=2, padx=120, pady=15)
         
+
+        self.label_informacion1 = tb.Label(root, text="", font=('Roboto', 12, 'bold'),  anchor='center')
+        self.label_informacion1.configure(foreground='#1464f6', width='29')
+        self.label_informacion1.grid(row=4, column=3, columnspan=2, padx=20, pady=20, ipady=10, sticky='nsew')
+        
+        self.img2 = tk.PhotoImage(file="./img/user.png")
+        self.img2 = self.img.subsample(3,3)
+        self.lbl_img2 = tb.Label(root,  image = self.img)                    
+        self.lbl_img2.grid(row=4, column=3, columnspan=2, padx=120, pady=15)
+
+
+
+
+
+
+
+
         #Botones
         #style botones
         
@@ -83,7 +101,8 @@ class Frame1(tb.Frame):
         self.boton_prestar = tb.Button(root, text="Prestar", 
             bootstyle='info',
             style="info.Tbutton",
-            width=20)
+            width=20,
+            command=self.buscar_equipo)
         self.boton_prestar.grid(row=3, column=2, columnspan=2, pady=15, ipadx=5, ipady=15)
 
         '''
@@ -134,9 +153,36 @@ class Frame1(tb.Frame):
             # Si no hay datos para el usuario, mostramos el mensaje y volvemos a mostrar la imagen
             self.label_informacion.config(text="El usuario no se encuentra \nen la base de datos", image='')
             self.lbl_img1.grid_remove()  # Esto vuelve a mostrar la imagen
+    
+
+    #Datos del Equipo
             
-            
+    def buscar_equipo(self):
         
+        codigo_equipo = self.entry_codigo.get()            
+        self.codigo = ""              
+        equipo = buscareq(codigo_equipo)        
+                
+        if equipo is not None:
+        
+            self.codigo_equipo = equipo[1]
+            self.marca_equipo = equipo[2]
+            self.serial_equipo = equipo[3]
+            self.placa_equipo = equipo[4]
+                                      
+            # Mostrar la información del usuario
+        
+            self.label_informacion1.config (text="Código: %s\nMarca: %s  \nSerial: %s\nPlaca: %s" %(self.codigo_equipo, self.marca_equipo, self.serial_equipo, self.placa_equipo),
+            
+                image=''  # Esto elimina la imagen del label
+            )
+            self.lbl_img2.grid_remove()  # Esto oculta la imagen sin eliminarla del layout
+        
+        else: 
+            
+            # Si no hay datos para el usuario, mostramos el mensaje y volvemos a mostrar la imagen
+            self.label_informacion1.config(text="El Equipo no se encuentra \nen la base de datos", image='')
+            self.lbl_img2.grid_remove()  # Esto vuelve a mostrar la imagen
         
         
               

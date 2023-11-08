@@ -153,7 +153,7 @@ def buscar(codigo):
 #Se crea la clase equipo
 
 class Equipo:
-    def __init__(self, codigo_equipo, marca, serial_equipo, placa_equipo):
+    def __init__(self, codigo_equipo, marca_equipo, serial_equipo, placa_equipo):
         self.id_equipo = None
         self.codigo_equipo = codigo_equipo
         self.marca = marca
@@ -221,7 +221,7 @@ def eliminar_equipo(id_equipo):
         mensaje = 'No se pudo eliminar este registro'
         messagebox.showerror(titulo, mensaje)
 
-def buscar_equipo(codigo_equipo):
+def buscareq(codigo_equipo):
     conexion = ConexionDB()    
         
     # Consultar la base de datos
@@ -229,9 +229,10 @@ def buscar_equipo(codigo_equipo):
     
     equipo = conexion.cursor.fetchone()    
     conexion.cerrar()
-    
+    print(equipo)    
     return equipo
-    
+
+
     
    
     

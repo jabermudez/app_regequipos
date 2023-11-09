@@ -66,7 +66,7 @@ class Frame1(tb.Frame):
         self.lbl_img1 = tb.Label(root,  image = self.img1)                    
         self.lbl_img1.grid(row=4, column=0, columnspan=2, padx=120, pady=15)
         
-
+        
         self.label_informacion1 = tb.Label(root, text="", font=('Roboto', 12, 'bold'),  anchor='center')
         self.label_informacion1.configure(foreground='#1464f6', width='29')
         self.label_informacion1.grid(row=4, column=2, columnspan=2, padx=20, pady=20, ipady=10)

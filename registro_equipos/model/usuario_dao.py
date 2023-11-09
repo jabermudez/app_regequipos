@@ -264,7 +264,7 @@ def obtener_id_equipo_por_codigo(codigo_equipo, conexion):
 
 def asignar_equipo_a_usuario_db(codigo_usuario, codigo_equipo):
     conexion = ConexionDB()  
-    # Aquí asumimos que 'ConexionDB' es una clase que maneja la conexión a la base de datos
+    # 'ConexionDB' es una clase que maneja la conexión a la base de datos
     
     try:
         # Ejecuta la lógica para asignar el equipo al usuario

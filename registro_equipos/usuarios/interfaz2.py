@@ -70,15 +70,10 @@ class Frame1(tb.Frame):
         self.label_informacion1.configure(foreground='#1464f6', width='29')
         self.label_informacion1.grid(row=4, column=3, columnspan=2, padx=20, pady=20, ipady=10, sticky='nsew')
         
-        self.img2 = tk.PhotoImage(file="./img/user.png")
+        self.img2 = tk.PhotoImage(file="./img/equipo.png")
         self.img2 = self.img.subsample(3,3)
-        self.lbl_img2 = tb.Label(root,  image = self.img)                    
-        self.lbl_img2.grid(row=4, column=3, columnspan=2, padx=120, pady=15)
-
-
-
-
-
+        self.lbl_img2 = tb.Label(root,  image = self.img1)                    
+        self.lbl_img2.grid(row=4, column=3, columnspan=2, padx=0, pady=15, sticky='nsew')
 
 
 
@@ -98,7 +93,7 @@ class Frame1(tb.Frame):
             command=self.buscar_datos)
         self.button_verificar.grid(row=3, column=0, columnspan=2, pady=15, ipady=15)   
         
-        self.boton_prestar = tb.Button(root, text="Prestar", 
+        self.boton_prestar = tb.Button(root, text="Asignar", 
             bootstyle='info',
             style="info.Tbutton",
             width=20,
@@ -117,8 +112,8 @@ class Frame1(tb.Frame):
         self.entry_codigo = tb.Entry(root, font=('Arial', 11), bootstyle='secondary')
         self.entry_codigo.grid(row=2, column=1, padx=0, pady=20, ipadx=0, sticky='w')
         
-        self.entry_equipo = tb.Entry(root, font=('Arial', 11), bootstyle='secondary')
-        self.entry_equipo.grid(row=2, column=3,  padx=(0, 20), pady=5, sticky='w')
+        self.entry_codigo_equipo = tb.Entry(root, font=('Arial', 11), bootstyle='secondary')
+        self.entry_codigo_equipo.grid(row=2, column=3,  padx=(0, 20), pady=5, sticky='w')
        
              
         #Campos de entrada
@@ -159,8 +154,8 @@ class Frame1(tb.Frame):
             
     def buscar_equipo(self):
         
-        codigo_equipo = self.entry_codigo.get()            
-        self.codigo = ""              
+        codigo_equipo = self.entry_codigo_equipo.get()            
+        self.codigo_equipo = ""              
         equipo = buscareq(codigo_equipo)        
                 
         if equipo is not None:

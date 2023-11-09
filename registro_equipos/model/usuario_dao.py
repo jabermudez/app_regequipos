@@ -145,7 +145,8 @@ def buscar(codigo):
     # Consultar la base de datos
     conexion.cursor.execute("SELECT * FROM usuarios WHERE codigo = ?", (codigo,))
     
-    usuario = conexion.cursor.fetchone()    
+    usuario = conexion.cursor.fetchone()  
+    
     conexion.cerrar()
     
     return usuario
@@ -228,8 +229,7 @@ def buscareq(codigo_equipo):
     conexion.cursor.execute("SELECT * FROM equipos WHERE codigo_equipo = ?", (codigo_equipo,))
     
     equipo = conexion.cursor.fetchone()    
-    conexion.cerrar()
-    print(equipo)    
+    conexion.cerrar()     
     return equipo
 
 

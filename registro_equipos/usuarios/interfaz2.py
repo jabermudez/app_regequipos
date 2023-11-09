@@ -3,8 +3,9 @@ import ttkbootstrap as tb
 from ttkbootstrap import *
 from ttkbootstrap.constants import *
 from tkinter import ttk, messagebox
-from model.usuario_dao import crear_tabla, borrar_tabla,buscar, buscareq
+from model.usuario_dao import crear_tabla, borrar_tabla,buscar, buscareq, asignar_equipo_a_usuario_db
 from model.usuario_dao import Usuario, Equipo
+
 
 
 #Barra Menù Superior 
@@ -68,13 +69,12 @@ class Frame1(tb.Frame):
 
         self.label_informacion1 = tb.Label(root, text="", font=('Roboto', 12, 'bold'),  anchor='center')
         self.label_informacion1.configure(foreground='#1464f6', width='29')
-        self.label_informacion1.grid(row=4, column=3, columnspan=2, padx=20, pady=20, ipady=10, sticky='nsew')
+        self.label_informacion1.grid(row=4, column=2, columnspan=2, padx=20, pady=20, ipady=10)
         
         self.img2 = tk.PhotoImage(file="./img/equipo.png")
-        self.img2 = self.img.subsample(3,3)
-        self.lbl_img2 = tb.Label(root,  image = self.img1)                    
-        self.lbl_img2.grid(row=4, column=3, columnspan=2, padx=0, pady=15, sticky='nsew')
-
+        self.img2 = self.img2.subsample(2,2)
+        self.lbl_img2 = tb.Label(root,  image = self.img2)                    
+        self.lbl_img2.grid(row=4, column=2, columnspan=2, padx=0, pady=15)
 
 
         #Botones
@@ -90,15 +90,15 @@ class Frame1(tb.Frame):
             bootstyle='primary',
             style="primary.Tbutton",
             width=20, 
-            command=self.buscar_datos)
+            command=self.buscar_equipo)
         self.button_verificar.grid(row=3, column=0, columnspan=2, pady=15, ipady=15)   
         
         self.boton_prestar = tb.Button(root, text="Asignar", 
             bootstyle='info',
             style="info.Tbutton",
             width=20,
-            command=self.buscar_equipo)
-        self.boton_prestar.grid(row=3, column=2, columnspan=2, pady=15, ipadx=5, ipady=15)
+            command=self.asignar_equipo)
+        self.boton_prestar.grid(row=3, column=2, columnspan=2, pady=15, ipadx=15, ipady=15)
 
         '''
         self.boton_cerrar = tb.Button(root, text="Cerrar", 
@@ -179,8 +179,20 @@ class Frame1(tb.Frame):
             self.label_informacion1.config(text="El Equipo no se encuentra \nen la base de datos", image='')
             self.lbl_img2.grid_remove()  # Esto vuelve a mostrar la imagen
         
+        self.buscar_datos()
         
-              
+    def asignar_equipo(self):
+        codigo_usuario = self.entry_codigo.get()
+        codigo_equipo = self.entry_codigo_equipo.get()
+        
+        # Verifica si ambos códigos están presentes
+        if codigo_usuario and codigo_equipo:
+            # Llama a la función del módulo database_manager
+            resultado, mensaje = asignar_equipo_a_usuario_db(codigo_usuario, codigo_equipo)
+            messagebox.showinfo('Resultado', mensaje)
+        else:
+            messagebox.showwarning('Advertencia', 'Debes ingresar tanto el código de usuario como el de equipo.')
+
         
         
         

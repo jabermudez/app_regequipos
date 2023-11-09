@@ -68,7 +68,7 @@ def borrar_tabla():
 
 #Se crea la clase usuario, a travès de esta se generaràn las diferentes funciones del CRUD
 class Usuario:
-    def __init__(self, codigo, nombre, apellidos, documento, ficha,correo,celular):
+    def __init__(self, codigo, nombre, apellidos, documento, ficha,correo,celular, id_equipo):
         self.id_usuario = None
         self.codigo = codigo
         self.nombre = nombre
@@ -77,9 +77,10 @@ class Usuario:
         self.ficha = ficha
         self.correo = correo
         self.celular = celular
+        self.id_equipo = id_equipo
     
     def __str__(self):
-        return f'Usuario[{self.codigo},{self.nombre}, {self.apellido}, {self.documento},{self.ficha},{self.correo},{self.celular}]'
+        return f'Usuario[{self.codigo},{self.nombre}, {self.apellido}, {self.documento},{self.ficha},{self.correo},{self.celular},{self.id_equipo}]'
 
 def guardar(usuario):
     conexion = ConexionDB()
@@ -157,7 +158,7 @@ class Equipo:
     def __init__(self, codigo_equipo, marca_equipo, serial_equipo, placa_equipo):
         self.id_equipo = None
         self.codigo_equipo = codigo_equipo
-        self.marca = marca
+        self.marca = marca_equipo
         self.serial_equipo = serial_equipo
         self.placa_equipo = placa_equipo
         
@@ -234,7 +235,55 @@ def buscareq(codigo_equipo):
 
 
     
-   
+import sqlite3
+
+
+def obtener_id_usuario_por_codigo(codigo_usuario, conexion):
+    conexion = ConexionDB()  
+    try:
+        sql = "SELECT id_usuario FROM usuarios WHERE codigo = ?"
+        conexion.cursor.execute(sql, (codigo_usuario,))
+        resultado = conexion.cursor.fetchone()
+        return resultado[0] if resultado else None
+    except sqlite3.Error as e:
+        print(f"Error al obtener id_usuario: {e}")
+        return None
+
+def obtener_id_equipo_por_codigo(codigo_equipo, conexion):
+    conexion = ConexionDB()  
+    try:
+        sql = "SELECT id_equipo FROM equipos WHERE codigo_equipo = ?"
+        conexion.cursor.execute(sql, (codigo_equipo,))
+        resultado = conexion.cursor.fetchone()
+        return resultado[0] if resultado else None
+    except sqlite3.Error as e:
+        print(f"Error al obtener id_equipo: {e}")
+        return None
+
+
+
+def asignar_equipo_a_usuario_db(codigo_usuario, codigo_equipo):
+    conexion = ConexionDB()  
+    # Aquí asumimos que 'ConexionDB' es una clase que maneja la conexión a la base de datos
+    
+    try:
+        # Ejecuta la lógica para asignar el equipo al usuario
+        id_usuario = obtener_id_usuario_por_codigo(codigo_usuario, conexion)
+        id_equipo = obtener_id_equipo_por_codigo(codigo_equipo, conexion)
+        
+        if id_usuario and id_equipo:
+            sql = "UPDATE usuarios SET id_equipo = ? WHERE id_usuario = ?"
+            conexion.cursor.execute(sql, (id_equipo, id_usuario))
+            #conexion.commit()            
+            return True, "Equipo asignado correctamente al usuario."
+        else:
+            return False, "El usuario o el equipo no se encontraron en la base de datos."
+
+    except sqlite3.Error as e:
+        return False, f"Error al asignar el equipo al usuario: {e}"
+    finally:
+        conexion.cerrar()
+
     
     
     

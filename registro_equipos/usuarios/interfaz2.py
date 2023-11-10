@@ -101,12 +101,12 @@ class Frame1(tb.Frame):
         self.boton_prestar.grid(row=3, column=2, columnspan=2, pady=15, ipadx=15, ipady=15)
 
         
-        self.boton_cerrar = tb.Button(root, text="Recibir", 
+        self.boton_recibir = tb.Button(root, text="Recibir", 
             bootstyle='danger',
             style="danger.Tbutton",
-            width=12,
+            width=20,
             command=self.entrega_equipo)
-        self.boton_cerrar.grid(row=4, column=2, columnspan=2, ipadx=5, ipady=15)
+        self.boton_recibir.grid(row=4, column=1, columnspan=2, ipadx=15, ipady=15)
         
         #Entradas
         

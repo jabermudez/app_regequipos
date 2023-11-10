@@ -1,5 +1,6 @@
 from .conexion_db import ConexionDB
 from tkinter import messagebox
+from datetime import datetime
 
 #Crea la tabla usuarios desde el aplicativo
 
@@ -48,6 +49,36 @@ def crear_tabla():
         titulo = 'Crear Registro'
         mensaje = 'Error al crear las tablas: ' + str(e)
         messagebox.showwarning(titulo, mensaje)
+
+def agregar_columna_fecha_asignacion():
+    conexion = ConexionDB()
+    sql = '''
+    ALTER TABLE usuarios
+    ADD COLUMN fecha_asignacion DATETIME
+    '''
+    try:
+        conexion.cursor.execute(sql)
+        # Confirmar cambios
+        conexion.conn.commit()
+    except Exception as e:
+        print("Error al agregar la columna de fecha de asignación", e)
+    finally:
+        conexion.cerrar()
+
+def agregar_columna_fecha_entrega():
+    conexion = ConexionDB()
+    sql = '''
+    ALTER TABLE usuarios
+    ADD COLUMN fecha_entrega DATETIME
+    '''
+    try:
+        conexion.cursor.execute(sql)
+        conexion.conn.commit()
+    except Exception as e:
+        print("Error al agregar la columna de fecha de entrega", e)
+    finally:
+        conexion.cerrar()
+
 
 #Permite borrar la tabla usuarios desde el aplicativo
 def borrar_tabla():
@@ -266,14 +297,17 @@ def asignar_equipo_a_usuario_db(codigo_usuario, codigo_equipo):
     conexion = ConexionDB()  
     # 'ConexionDB' es una clase que maneja la conexión a la base de datos
     
+    #se asigna fecha y hora cuando se asigna un equipo
+    fecha_asignacion = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    
     try:
         # Ejecuta la lógica para asignar el equipo al usuario
         id_usuario = obtener_id_usuario_por_codigo(codigo_usuario, conexion)
         id_equipo = obtener_id_equipo_por_codigo(codigo_equipo, conexion)
         
         if id_usuario and id_equipo:
-            sql = "UPDATE usuarios SET id_equipo = ? WHERE id_usuario = ?"
-            conexion.cursor.execute(sql, (id_equipo, id_usuario))
+            sql = "UPDATE usuarios SET id_equipo = ?, fecha_asignacion = ? WHERE id_usuario = ?"
+            conexion.cursor.execute(sql, (id_equipo, fecha_asignacion, id_usuario))
             #conexion.commit()            
             return True, "Equipo asignado correctamente al usuario."
         else:
@@ -285,8 +319,28 @@ def asignar_equipo_a_usuario_db(codigo_usuario, codigo_equipo):
         conexion.cerrar()
 
     
-    
-    
+
+
+def registrar_entrega(codigo_usuario):
+    conexion = ConexionDB()
+    try:
+        # Obtén el id del usuario basado en el código proporcionado
+        id_usuario = obtener_id_usuario_por_codigo(codigo_usuario, conexion)
+
+        if id_usuario:
+            # Captura la fecha y hora actual de entrega
+            fecha_entrega = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+# Actualiza la base de datos con la fecha y hora de entrega
+            sql = "UPDATE usuarios SET fecha_entrega = ? WHERE id_usuario = ?"
+            parametros = (fecha_entrega, id_usuario)
+            conexion.cursor.execute(sql, parametros)            
+            return True, "Fecha de entrega registrada correctamente."
+        else:
+            return False, "No se encontró el usuario con ese código."
+    except sqlite3.Error as e:
+        return False, f"Error al registrar la entrega del equipo: {e}"
+    finally:
+        conexion.cerrar()
     
     
         

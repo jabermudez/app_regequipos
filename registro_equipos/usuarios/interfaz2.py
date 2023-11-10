@@ -3,7 +3,7 @@ import ttkbootstrap as tb
 from ttkbootstrap import *
 from ttkbootstrap.constants import *
 from tkinter import ttk, messagebox
-from model.usuario_dao import crear_tabla, borrar_tabla,buscar, buscareq, asignar_equipo_a_usuario_db
+from model.usuario_dao import crear_tabla, borrar_tabla,buscar, buscareq, asignar_equipo_a_usuario_db, registrar_entrega
 from model.usuario_dao import Usuario, Equipo
 
 
@@ -100,13 +100,14 @@ class Frame1(tb.Frame):
             command=self.asignar_equipo)
         self.boton_prestar.grid(row=3, column=2, columnspan=2, pady=15, ipadx=15, ipady=15)
 
-        '''
-        self.boton_cerrar = tb.Button(root, text="Cerrar", 
+        
+        self.boton_cerrar = tb.Button(root, text="Recibir", 
             bootstyle='danger',
             style="danger.Tbutton",
-            width=12)
+            width=12,
+            command=self.entrega_equipo)
         self.boton_cerrar.grid(row=4, column=2, columnspan=2, ipadx=5, ipady=15)
-        '''
+        
         #Entradas
         
         self.entry_codigo = tb.Entry(root, font=('Arial', 11), bootstyle='secondary')
@@ -193,10 +194,11 @@ class Frame1(tb.Frame):
         else:
             messagebox.showwarning('Advertencia', 'Debes ingresar tanto el código de usuario como el de equipo.')
 
-        
-        
-        
-        
        
-
-        
+    def entrega_equipo(self):
+        codigo_usuario = self.entry_codigo.get()
+        if  codigo_usuario:
+            entregado, mensaje = registrar_entrega(codigo_usuario)
+            messagebox.showinfo('Resultado', mensaje)
+        else:
+            messagebox.showwarning('Advertencia', 'Debes ingresar el código de usuario para registrar la entrega.')

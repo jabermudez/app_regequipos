@@ -194,11 +194,17 @@ class Frame1(tb.Frame):
         else:
             messagebox.showwarning('Advertencia', 'Debes ingresar tanto el código de usuario como el de equipo.')
 
+        self.entry_codigo.delete(0, tk.END)
+        self.entry_codigo_equipo.delete(0, tk.END)
        
     def entrega_equipo(self):
         codigo_usuario = self.entry_codigo.get()
+        codigo_equipo = self.entry_codigo_equipo.get()
         if  codigo_usuario:
-            entregado, mensaje = registrar_entrega(codigo_usuario)
+            entregado, mensaje = registrar_entrega(codigo_usuario, codigo_equipo)
             messagebox.showinfo('Resultado', mensaje)
         else:
             messagebox.showwarning('Advertencia', 'Debes ingresar el código de usuario para registrar la entrega.')
+        self.entry_codigo.delete(0, tk.END)
+        self.entry_codigo_equipo.delete(0, tk.END) 
+

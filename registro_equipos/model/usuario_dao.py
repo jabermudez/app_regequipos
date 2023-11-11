@@ -301,18 +301,23 @@ def asignar_equipo_a_usuario_db(codigo_usuario, codigo_equipo):
     fecha_asignacion = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     
     try:
-        # Ejecuta la lógica para asignar el equipo al usuario
         id_usuario = obtener_id_usuario_por_codigo(codigo_usuario, conexion)
         id_equipo = obtener_id_equipo_por_codigo(codigo_equipo, conexion)
-        
-        if id_usuario and id_equipo:
-            sql = "UPDATE usuarios SET id_equipo = ?, fecha_asignacion = ? WHERE id_usuario = ?"
-            conexion.cursor.execute(sql, (id_equipo, fecha_asignacion, id_usuario))
-            #conexion.commit()            
-            return True, "Equipo asignado correctamente al usuario."
-        else:
-            return False, "El usuario o el equipo no se encontraron en la base de datos."
 
+        if id_usuario and id_equipo:
+            # Verifica si el equipo ya está asignado
+            conexion.cursor.execute("SELECT estado FROM equipos WHERE id_equipo = ?", (id_equipo,))
+            estado = conexion.cursor.fetchone()
+            if estado and estado[0] == 'disponible':
+                # El equipo está disponible, procede con la asignación
+                sql = "UPDATE usuarios SET id_equipo = ? WHERE id_usuario = ?"
+                conexion.cursor.execute(sql, (id_equipo, id_usuario))
+                # Actualiza el estado del equipo a 'asignado'
+                conexion.cursor.execute("UPDATE equipos SET estado = 'asignado' WHERE id_equipo = ?", (id_equipo,))
+                
+                return True, "Equipo asignado correctamente al usuario."
+            else:
+                return False, "El equipo no está disponible."
     except sqlite3.Error as e:
         return False, f"Error al asignar el equipo al usuario: {e}"
     finally:
@@ -321,29 +326,46 @@ def asignar_equipo_a_usuario_db(codigo_usuario, codigo_equipo):
     
 
 
-def registrar_entrega(codigo_usuario):
+def registrar_entrega(codigo_usuario, codigo_equipo):
     conexion = ConexionDB()
     try:
-        # Obtén el id del usuario basado en el código proporcionado
+        # Encuentra el ID del usuario basado en el código proporcionado
         id_usuario = obtener_id_usuario_por_codigo(codigo_usuario, conexion)
 
         if id_usuario:
-            # Captura la fecha y hora actual de entrega
-            fecha_entrega = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-# Actualiza la base de datos con la fecha y hora de entrega
-            sql = "UPDATE usuarios SET fecha_entrega = ? WHERE id_usuario = ?"
-            parametros = (fecha_entrega, id_usuario)
-            conexion.cursor.execute(sql, parametros)            
-            return True, "Fecha de entrega registrada correctamente."
+            # Obtén el ID del equipo asignado al usuario
+            conexion.cursor.execute("SELECT id_equipo FROM usuarios WHERE id_usuario = ?", (id_usuario,))
+            registro = conexion.cursor.fetchone()
+            if registro:
+                id_equipo_actual = registro[0]
+
+                # Verifica que el código de equipo ingresado corresponde al equipo asignado
+                if id_equipo_actual:
+                    conexion.cursor.execute("SELECT codigo_equipo FROM equipos WHERE id_equipo = ?", (id_equipo_actual,))
+                    registro_equipo = conexion.cursor.fetchone()
+                    if registro_equipo and int(codigo_equipo) == registro_equipo[0]:
+                        # Registra la fecha y hora de la entrega y elimina la asignación del equipo al usuario
+                        fecha_entrega = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                        conexion.cursor.execute("UPDATE usuarios SET id_equipo = NULL, fecha_entrega = ? WHERE id_usuario = ?", (fecha_entrega, id_usuario))
+
+                        # Actualiza el estado del equipo a 'disponible'
+                        conexion.cursor.execute("UPDATE equipos SET estado = 'disponible' WHERE id_equipo = ?", (id_equipo_actual,))
+
+                        
+                        return True, "Entrega registrada y equipo disponible para asignación."
+                    else:
+                        return False, "El código de equipo ingresado no coincide con el equipo asignado al usuario."
+                else:
+                    return False, "No hay un equipo asignado actualmente a este usuario que se pueda entregar."
+            else:
+                return False, "No se encontró un equipo asignado a este usuario."
         else:
             return False, "No se encontró el usuario con ese código."
+
     except sqlite3.Error as e:
         return False, f"Error al registrar la entrega del equipo: {e}"
     finally:
         conexion.cerrar()
-    
-    
-        
-    
+
 
     

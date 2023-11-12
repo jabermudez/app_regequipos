@@ -1,23 +1,25 @@
-def registrar_entrega(codigo_usuario):
-    conexion = ConexionDB()
-    try:
-        id_usuario = obtener_id_usuario_por_codigo(codigo_usuario, conexion)
-        if id_usuario:
-            # Actualiza la fecha de entrega y marca el equipo como disponible
-            fecha_entrega = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            sql = "UPDATE usuarios SET fecha_entrega = ?, id_equipo = NULL WHERE id_usuario = ?"
-            conexion.cursor.execute(sql, (fecha_entrega, id_usuario))
-            # Debes obtener el id_equipo que se va a actualizar a 'disponible'
-            # Asumiendo que se almacena en la tabla de usuarios
-            conexion.cursor.execute("SELECT id_equipo FROM usuarios WHERE id_usuario = ?", (id_usuario,))
-            id_equipo = conexion.cursor.fetchone()[0]
-            if id_equipo:
-                conexion.cursor.execute("UPDATE equipos SET estado = 'disponible' WHERE id_equipo = ?", (id_equipo,))
-            conexion.conn.commit()
-            return True, "Entrega registrada correctamente."
-        else:
-            return False, "No se encontró el usuario con ese código."
-    except sqlite3.Error as e:
-        return False, f"Error al registrar la entrega del equipo: {e}"
-    finally:
-        conexion.cerrar()
+def asignar_equipo_a_usuario_db(codigo_usuario, codigo_equipo):
+    # ... tu código existente ...
+
+    if estado[0] == 'disponible':
+        # El equipo está disponible, procede con la asignación
+        conexion.cursor.execute("UPDATE equipos SET estado = 'asignado', id_usuario = ?, fecha_asignacion = ? WHERE id_equipo = ?", (id_usuario, fecha_asignacion, id_equipo))
+        conexion.conn.commit()  # Guarda los cambios en la base de datos
+        return True, "Equipo asignado correctamente al usuario."
+    else:
+        return False, "El equipo no está disponible o ya está asignado."
+    # ... tu código existente ...
+
+
+def registrar_entrega(codigo_equipo):
+    # ... tu código existente ...
+
+    if id_usuario:
+        # Registra la fecha y hora de la entrega y actualiza el estado del equipo
+        conexion.cursor.execute("UPDATE usuarios SET id_equipo = NULL, fecha_entrega = ? WHERE id_usuario = ?", (fecha_entrega, id_usuario[0]))
+        conexion.cursor.execute("UPDATE equipos SET estado = 'disponible', id_usuario = NULL, fecha_entrega = ? WHERE id_equipo = ?", (fecha_entrega, id_equipo,))
+        conexion.conn.commit()  # Guarda los cambios en la base de datos
+        return True, "Entrega registrada y equipo disponible para asignación."
+    else:
+        return False, "Este equipo no está asignado a ningún usuario y ya está disponible."
+    # ... tu código existente ...

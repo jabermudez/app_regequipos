@@ -31,7 +31,7 @@ class Frame1(tb.Frame):
         self.id_usuario = None
         self.id_equipo = None
         
-           
+        
         self.label = tb.Label(root, text='Servicio Nacional de Aprendizaje\n        \n          Centro Agroindustrial',font=('Arial', 18,'bold'), bootstyle='light', anchor='center')
         self.label.configure(background='#1464f6', width=93)        
         self.label.grid(row=0, column=0, columnspan=6, padx=0, pady=0, ipady=30)
@@ -55,27 +55,39 @@ class Frame1(tb.Frame):
                    
         self.label = tb.Label(root, text='# Equipo',font=('Arial', 12,'bold'), bootstyle="dark")
         self.label.grid(row=2, column=2, padx=20, pady=30, sticky='e')           
+              
+         
         
+        #self.label_informacion = tb.Label(root, text="", font=('Roboto', 12, 'bold'),  anchor='center')
+        #self.label_informacion.configure(foreground='#1464f6', width='29')
+        #self.label_informacion.grid(row=4, column=0, columnspan=2, padx=20, pady=20, ipady=10, sticky='nsew')
         
-        self.label_informacion = tb.Label(root, text="", font=('Roboto', 12, 'bold'),  anchor='center')
-        self.label_informacion.configure(foreground='#1464f6', width='29')
-        self.label_informacion.grid(row=4, column=0, columnspan=2, padx=20, pady=20, ipady=10, sticky='nsew')
+        # Utiliza Frame para agrupar elementos relacionados
+        info_frame = tb.Frame(root,  padding=(5, 5, 5, 5), relief='raised', bootstyle="primary")
+        info_frame.grid(row=4, column=0, columnspan=4, padx=10, pady=20, )
+        
+        # En este marco puedes colocar toda la información del usuario
+        self.label_informacion = tb.Label(info_frame, text="", font=('Roboto', 12, 'bold'),anchor='center')
+        self.label_informacion.configure(foreground='#1464f6', width='45')
+        self.label_informacion.grid(row=4, column=1, sticky='w')    
+        
         
         self.img1 = tk.PhotoImage(file="./img/user.png")
         self.img1 = self.img1.subsample(3,3)
         self.lbl_img1 = tb.Label(root,  image = self.img1)                    
-        self.lbl_img1.grid(row=4, column=0, columnspan=2, padx=120, pady=15)
+        self.lbl_img1.grid(row=4, column=0, columnspan=2, padx=120, pady=20)
         
         
-        self.label_informacion1 = tb.Label(root, text="", font=('Roboto', 12, 'bold'),  anchor='center')
-        self.label_informacion1.configure(foreground='#1464f6', width='29')
-        self.label_informacion1.grid(row=4, column=2, columnspan=2, padx=20, pady=20, ipady=10)
+        #self.label_informacion1 = tb.Label(root, text="", font=('Roboto', 12, 'bold'),  anchor='center')
+        #self.label_informacion1.configure(foreground='#1464f6', width='29')
+        #self.label_informacion1.grid(row=4, column=2, columnspan=2, padx=20, pady=20, ipady=10)
         
         self.img2 = tk.PhotoImage(file="./img/equipo.png")
         self.img2 = self.img2.subsample(2,2)
         self.lbl_img2 = tb.Label(root,  image = self.img2)                    
         self.lbl_img2.grid(row=4, column=2, columnspan=2, padx=0, pady=15)
 
+        
 
         #Botones
         #style botones
@@ -106,16 +118,26 @@ class Frame1(tb.Frame):
             style="danger.Tbutton",
             width=20,
             command=self.entrega_equipo)
-        self.boton_recibir.grid(row=4, column=1, columnspan=2, ipadx=15, ipady=15)
+        self.boton_recibir.grid(row=5, column=1, columnspan=2,  ipadx=15, ipady=15)
         
         #Entradas
         
-        self.entry_codigo = tb.Entry(root, font=('Arial', 11), bootstyle='secondary')
+        self.entry_codigo = tb.Entry(root, font=('Roboto', 11), bootstyle='secondary')
         self.entry_codigo.grid(row=2, column=1, padx=0, pady=20, ipadx=0, sticky='w')
         
-        self.entry_codigo_equipo = tb.Entry(root, font=('Arial', 11), bootstyle='secondary')
+        self.entry_codigo_equipo = tb.Entry(root, font=('Roboto', 11), bootstyle='secondary')
         self.entry_codigo_equipo.grid(row=2, column=3,  padx=(0, 20), pady=5, sticky='w')
        
+             
+        my_style.configure('TLabel', font=('Roboto', 12))
+        my_style.configure('TButton', font=('Roboto', 12, 'bold'))
+        my_style.configure('TEntry', font=('Roboto', 12), padding=5)
+        
+             
+             
+             
+             
+             
              
         #Campos de entrada
         
@@ -177,7 +199,7 @@ class Frame1(tb.Frame):
         else: 
             
             # Si no hay datos para el usuario, mostramos el mensaje y volvemos a mostrar la imagen
-            self.label_informacion1.config(text="El Equipo no se encuentra \nen la base de datos", image='')
+            self.label_informacion.config(text="El Equipo no se encuentra \nen la base de datos", image='')
             self.lbl_img2.grid_remove()  # Esto vuelve a mostrar la imagen
         
         self.buscar_datos()

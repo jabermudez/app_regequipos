@@ -63,7 +63,7 @@ class Frame1(tb.Frame):
         #self.label_informacion.grid(row=4, column=0, columnspan=2, padx=20, pady=20, ipady=10, sticky='nsew')
         
         # Utiliza Frame para agrupar elementos relacionados
-        info_frame = tb.Frame(root,  padding=(5, 5, 5, 5), relief='raised', bootstyle="primary")
+        info_frame = tb.Frame(root,  padding=(1, 1, 1, 1), relief='raised',border=5, bootstyle="primary")
         info_frame.grid(row=4, column=0, columnspan=4, padx=10, pady=20, )
         
         # En este marco puedes colocar toda la información del usuario
@@ -190,7 +190,7 @@ class Frame1(tb.Frame):
                                       
             # Mostrar la información del usuario
         
-            self.label_informacion1.config (text="Código: %s\nMarca: %s  \nSerial: %s\nPlaca: %s" %(self.codigo_equipo, self.marca_equipo, self.serial_equipo, self.placa_equipo),
+            self.label_informacion.config (text="Código: %s\nMarca: %s  \nSerial: %s\nPlaca: %s" %(self.codigo_equipo, self.marca_equipo, self.serial_equipo, self.placa_equipo),
             
                 image=''  # Esto elimina la imagen del label
             )

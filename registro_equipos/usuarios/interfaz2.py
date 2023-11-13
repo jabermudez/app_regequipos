@@ -30,7 +30,7 @@ class Frame1(tb.Frame):
         self.root = root                        
         self.id_usuario = None
         self.id_equipo = None
-        
+        self.equipo_asignado = False
         
         self.label = tb.Label(root, text='Servicio Nacional de Aprendizaje\n        \n          Centro Agroindustrial',font=('Arial', 18,'bold'), bootstyle='light', anchor='center')
         self.label.configure(background='#1464f6', width=93)        
@@ -63,11 +63,11 @@ class Frame1(tb.Frame):
         #self.label_informacion.grid(row=4, column=0, columnspan=2, padx=20, pady=20, ipady=10, sticky='nsew')
         
         # Utiliza Frame para agrupar elementos relacionados
-        info_frame = tb.Frame(root,  padding=(1, 1, 1, 1), relief='raised',border=5, bootstyle="primary")
-        info_frame.grid(row=4, column=0, columnspan=4, padx=10, pady=20, )
+        self.info_frame = tb.Frame(root,  padding=(1, 1, 1, 1), relief='raised',border=5, bootstyle="primary")
+        
         
         # En este marco puedes colocar toda la información del usuario
-        self.label_informacion = tb.Label(info_frame, text="", font=('Roboto', 12, 'bold'),anchor='center')
+        self.label_informacion = tb.Label(self.info_frame, text="", font=('Roboto', 12, 'bold'),anchor='center')
         self.label_informacion.configure(foreground='#1464f6', width='45')
         self.label_informacion.grid(row=4, column=1, sticky='w')    
         
@@ -75,7 +75,7 @@ class Frame1(tb.Frame):
         self.img1 = tk.PhotoImage(file="./img/user.png")
         self.img1 = self.img1.subsample(3,3)
         self.lbl_img1 = tb.Label(root,  image = self.img1)                    
-        self.lbl_img1.grid(row=4, column=0, columnspan=2, padx=120, pady=20)
+        self.lbl_img1.grid(row=4, column=0, columnspan=2, padx=120, pady=10)
         
         
         #self.label_informacion1 = tb.Label(root, text="", font=('Roboto', 12, 'bold'),  anchor='center')
@@ -85,7 +85,7 @@ class Frame1(tb.Frame):
         self.img2 = tk.PhotoImage(file="./img/equipo.png")
         self.img2 = self.img2.subsample(2,2)
         self.lbl_img2 = tb.Label(root,  image = self.img2)                    
-        self.lbl_img2.grid(row=4, column=2, columnspan=2, padx=0, pady=15)
+        self.lbl_img2.grid(row=4, column=2, columnspan=2, padx=0, pady=10)
 
         
 
@@ -103,14 +103,14 @@ class Frame1(tb.Frame):
             style="primary.Tbutton",
             width=20, 
             command=self.buscar_equipo)
-        self.button_verificar.grid(row=3, column=0, columnspan=2, pady=15, ipady=15)   
+        self.button_verificar.grid(row=3, column=0, columnspan=2, pady=10, ipady=15)   
         
         self.boton_prestar = tb.Button(root, text="Asignar", 
             bootstyle='info',
             style="info.Tbutton",
             width=20,
             command=self.asignar_equipo)
-        self.boton_prestar.grid(row=3, column=2, columnspan=2, pady=15, ipadx=15, ipady=15)
+        self.boton_prestar.grid(row=3, column=2, columnspan=2, pady=10, ipadx=15, ipady=15)
 
         
         self.boton_recibir = tb.Button(root, text="Recibir", 
@@ -133,10 +133,6 @@ class Frame1(tb.Frame):
         my_style.configure('TButton', font=('Roboto', 12, 'bold'))
         my_style.configure('TEntry', font=('Roboto', 12), padding=5)
         
-             
-             
-             
-             
              
              
         #Campos de entrada
@@ -174,7 +170,25 @@ class Frame1(tb.Frame):
     
 
     #Datos del Equipo
+    # Después de obtener los datos, muestra la información y oculta las imágenes
+            self.info_frame.grid()  # Muestra el frame de información
+            self.lbl_img.grid_remove()  # Oculta la imagen inicial del usuario
+            self.lbl_img2.grid_remove()  # Oculta la imagen inicial del equipo
+
             
+        
+    def mostrar_info_frame(self):         
+        self.info_frame.grid(row=4, column=0, columnspan=4, padx=10, pady=20, ) 
+        
+    def ocultar_info_mostrar_imagenes(self):
+        # Oculta el frame con la información del usuario y del equipo
+        self.info_frame.grid_remove()  # O .grid_forget() si quieres que se olvide la configuración de la grilla
+        # Muestra las imágenes iniciales
+        self.lbl_img1.grid()  # Muestra la imagen del logo si estaba oculta
+        self.lbl_img2.grid()  # Muestra la imagen del usuario si estaba oculta
+        # Puedes llamar a .grid() para cualquier otra imagen que necesites mostrar de nuevo
+
+        
     def buscar_equipo(self):
         
         codigo_equipo = self.entry_codigo_equipo.get()            
@@ -203,6 +217,7 @@ class Frame1(tb.Frame):
             self.lbl_img2.grid_remove()  # Esto vuelve a mostrar la imagen
         
         self.buscar_datos()
+        self.mostrar_info_frame()
         
     def asignar_equipo(self):
         codigo_usuario = self.entry_codigo.get()
@@ -218,6 +233,18 @@ class Frame1(tb.Frame):
 
         self.entry_codigo.delete(0, tk.END)
         self.entry_codigo_equipo.delete(0, tk.END)
+        
+        if resultado:  # Si el equipo fue asignado exitosamente
+            self.equipo_asignado = True
+            self.mostrar_imagenes_iniciales()
+
+    def mostrar_imagenes_iniciales(self):
+        # Si un equipo fue asignado, oculta el frame de información y muestra las imágenes iniciales
+        if self.equipo_asignado:
+            self.info_frame.grid_remove()  # Oculta la información
+            self.lbl_img1.grid()  # Muestra la imagen inicial del usuario
+            self.lbl_img2.grid()  # Muestra la imagen inicial del equipo
+            self.equipo_asignado = False  # Restablece la variable para la próxima verificación
        
     def entrega_equipo(self):
         codigo_usuario = self.entry_codigo.get()
@@ -229,4 +256,7 @@ class Frame1(tb.Frame):
             messagebox.showwarning('Advertencia', 'Debes ingresar el código de usuario para registrar la entrega.')
         self.entry_codigo.delete(0, tk.END)
         self.entry_codigo_equipo.delete(0, tk.END) 
+        
+        self.mostrar_imagenes_iniciales()
+        
 

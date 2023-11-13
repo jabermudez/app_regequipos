@@ -101,24 +101,24 @@ class Frame1(tb.Frame):
         self.button_verificar = tb.Button(root, text="Verificar", 
             bootstyle='primary',
             style="primary.Tbutton",
-            width=20, 
+            width=15, 
             command=self.buscar_equipo)
         self.button_verificar.grid(row=3, column=0, columnspan=2, pady=10, ipady=15)   
         
         self.boton_prestar = tb.Button(root, text="Asignar", 
             bootstyle='info',
             style="info.Tbutton",
-            width=20,
+            width=15,
             command=self.asignar_equipo)
-        self.boton_prestar.grid(row=3, column=2, columnspan=2, pady=10, ipadx=15, ipady=15)
+        self.boton_prestar.grid(row=3, column=1, columnspan=2, pady=10, ipadx=15, ipady=15)
 
         
         self.boton_recibir = tb.Button(root, text="Recibir", 
             bootstyle='danger',
             style="danger.Tbutton",
-            width=20,
+            width=15,
             command=self.entrega_equipo)
-        self.boton_recibir.grid(row=5, column=1, columnspan=2,  ipadx=15, ipady=15)
+        self.boton_recibir.grid(row=3, column=2, columnspan=2,  ipadx=15, ipady=15)
         
         #Entradas
         

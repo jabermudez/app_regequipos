@@ -50,34 +50,9 @@ def crear_tabla():
         mensaje = 'Error al crear las tablas: ' + str(e)
         messagebox.showwarning(titulo, mensaje)
 
-def agregar_columna_fecha_asignacion():
-    conexion = ConexionDB()
-    sql = '''
-    ALTER TABLE usuarios
-    ADD COLUMN fecha_asignacion DATETIME
-    '''
-    try:
-        conexion.cursor.execute(sql)
-        # Confirmar cambios
-        conexion.conn.commit()
-    except Exception as e:
-        print("Error al agregar la columna de fecha de asignación", e)
-    finally:
-        conexion.cerrar()
 
-def agregar_columna_fecha_entrega():
-    conexion = ConexionDB()
-    sql = '''
-    ALTER TABLE usuarios
-    ADD COLUMN fecha_entrega DATETIME
-    '''
-    try:
-        conexion.cursor.execute(sql)
-        conexion.conn.commit()
-    except Exception as e:
-        print("Error al agregar la columna de fecha de entrega", e)
-    finally:
-        conexion.cerrar()
+
+
 
 
 #Permite borrar la tabla usuarios desde el aplicativo
@@ -305,50 +280,65 @@ def asignar_equipo_a_usuario_db(codigo_usuario, codigo_equipo):
         if id_usuario is None or id_equipo is None:
             return False, "El código de usuario o equipo no existe."
 
+        # Verifica si el usuario ya tiene un equipo asignado
+        sql_verificacion = "SELECT * FROM prestamos WHERE id_usuario = ? AND fecha_entrega IS NULL"
+        conexion.cursor.execute(sql_verificacion, (id_usuario,))
+        prestamo_activo = conexion.cursor.fetchone()
+
+        if prestamo_activo:
+            return False, "Este usuario ya tiene un equipo asignado."
+
         # Verifica el estado del equipo
         conexion.cursor.execute("SELECT estado FROM equipos WHERE id_equipo = ?", (id_equipo,))
         estado = conexion.cursor.fetchone()
-        if estado[0] != 'disponible':
+        if estado and estado[0] != 'disponible':
             return False, "El equipo no está disponible."
 
-        # Si está disponible, asigna el equipo al usuario
-        conexion.cursor.execute("UPDATE usuarios SET id_equipo = ?, fecha_asignacion = ? WHERE id_usuario = ?", (id_equipo, fecha_asignacion, id_usuario))
-        conexion.cursor.execute("UPDATE equipos SET estado = 'asignado' WHERE id_equipo = ?", (id_equipo,))
+        # Si está disponible y el usuario no tiene asignaciones previas, procede a asignar el equipo
+        sql_prestamo = "INSERT INTO prestamos (id_usuario, id_equipo, fecha_asignacion) VALUES (?, ?, ?)"
+        conexion.cursor.execute(sql_prestamo, (id_usuario, id_equipo, fecha_asignacion))
+        sql_equipo = "UPDATE equipos SET estado = 'asignado' WHERE id_equipo = ?"
+        conexion.cursor.execute(sql_equipo, (id_equipo,))
         
+        #conexion.conn.commit()  # Guarda los cambios en la base de datos
         return True, "Equipo asignado correctamente al usuario."
         
     except sqlite3.Error as e:
         return False, f"Error al asignar el equipo: {e}"
     finally:
         conexion.cerrar()
-   
 
 
 def registrar_entrega(codigo_usuario, codigo_equipo):
     conexion = ConexionDB()
-    fecha_entrega = datetime.now().strftime("%Y-%m-%d %H:%M:%S")  # Fecha y hora actual
-
+    fecha_entrega = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    
     try:
         id_usuario = obtener_id_usuario_por_codigo(codigo_usuario, conexion)
         id_equipo = obtener_id_equipo_por_codigo(codigo_equipo, conexion)
 
-        if id_usuario is None:
-            return False, "No se encontró el usuario con ese código."
-        if id_equipo is None:
-            return False, "No se encontró el equipo con ese código."
+        if id_usuario is None or id_equipo is None:
+            return False, "Usuario o equipo no encontrado."
 
-        conexion.cursor.execute("SELECT id_equipo FROM usuarios WHERE id_usuario = ? AND id_equipo = ?", (id_usuario, id_equipo))
-        equipo_asignado = conexion.cursor.fetchone()
+        # Actualiza la tabla prestamos con la fecha de entrega
+        sql_prestamo = """
+            UPDATE prestamos
+            SET fecha_entrega = ?
+            WHERE id_usuario = ? AND id_equipo = ? AND fecha_entrega IS NULL
+        """
+        conexion.cursor.execute(sql_prestamo, (fecha_entrega, id_usuario, id_equipo))
+        
+        if conexion.cursor.rowcount == 0:
+            return False, "No se encontró un préstamo activo para este usuario y equipo o ya ha sido entregado."
 
-        if equipo_asignado:
-            conexion.cursor.execute("UPDATE usuarios SET id_equipo = NULL, fecha_entrega = ? WHERE id_usuario = ?", (fecha_entrega, id_usuario))
-            conexion.cursor.execute("UPDATE equipos SET estado = 'disponible' WHERE id_equipo = ?", (id_equipo,))
-            #conexion.conn.commit()  # Guarda los cambios en la base de datos
-            return True, "Entrega registrada y equipo disponible para asignación."
-        else:
-            return False, "El equipo que se intenta devolver no está asignado al usuario proporcionado o ya está disponible."
+        # Opcional: Actualiza la tabla de equipos para reflejar que el equipo está disponible
+        sql_equipo = "UPDATE equipos SET estado = 'disponible' WHERE id_equipo = ?"
+        conexion.cursor.execute(sql_equipo, (id_equipo,))
+        
+       
+        return True, "Entrega registrada correctamente y equipo disponible."
 
     except sqlite3.Error as e:
-        return False, f"Error al registrar la entrega del equipo: {e}"
+        return False, f"Error al registrar la entrega: {e}"
     finally:
         conexion.cerrar()

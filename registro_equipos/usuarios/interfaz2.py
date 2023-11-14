@@ -67,7 +67,7 @@ class Frame1(tb.Frame):
         
         
         # En este marco puedes colocar toda la información del usuario
-        self.label_informacion = tb.Label(self.info_frame, text="", font=('Roboto', 12, 'bold'),anchor='center')
+        self.label_informacion = tb.Label(self.info_frame, text="", font=('Roboto', 12),anchor='center')
         self.label_informacion.configure(foreground='#1464f6', width='45')
         self.label_informacion.grid(row=4, column=1, sticky='w')    
         
@@ -93,28 +93,25 @@ class Frame1(tb.Frame):
         #style botones
         
         my_style = tb.Style()        
-        my_style.configure('primary.TButton', font=("Roboto",16))
+        my_style.configure('primary.TButton', font=("Roboto",16))        
         my_style.configure('info.TButton', font=("Roboto",16))
         my_style.configure('danger.TButton', font=("Roboto",16))
         
        
-        self.button_verificar = tb.Button(root, text="Verificar", 
-            bootstyle='primary',
-            style="primary.Tbutton",
+        self.button_verificar = tb.Button(root, text="Verificar",                                          
+            style="primary.Tbutton",            
             width=15, 
             command=self.buscar_equipo)
         self.button_verificar.grid(row=3, column=0, columnspan=2, pady=10, ipady=15)   
         
-        self.boton_prestar = tb.Button(root, text="Asignar", 
-            bootstyle='info',
+        self.boton_prestar = tb.Button(root, text="Asignar",             
             style="info.Tbutton",
             width=15,
             command=self.asignar_equipo)
         self.boton_prestar.grid(row=3, column=1, columnspan=2, pady=10, ipadx=15, ipady=15)
 
         
-        self.boton_recibir = tb.Button(root, text="Recibir", 
-            bootstyle='danger',
+        self.boton_recibir = tb.Button(root, text="Recibir",             
             style="danger.Tbutton",
             width=15,
             command=self.entrega_equipo)
@@ -133,8 +130,7 @@ class Frame1(tb.Frame):
         my_style.configure('TButton', font=('Roboto', 12, 'bold'))
         my_style.configure('TEntry', font=('Roboto', 12), padding=5)
         
-             
-             
+                          
         #Campos de entrada
         
     
@@ -167,16 +163,14 @@ class Frame1(tb.Frame):
             # Si no hay datos para el usuario, mostramos el mensaje y volvemos a mostrar la imagen
             self.label_informacion.config(text="El usuario no se encuentra \nen la base de datos", image='')
             self.lbl_img1.grid_remove()  # Esto vuelve a mostrar la imagen
-    
+            
 
     #Datos del Equipo
     # Después de obtener los datos, muestra la información y oculta las imágenes
             self.info_frame.grid()  # Muestra el frame de información
             self.lbl_img.grid_remove()  # Oculta la imagen inicial del usuario
             self.lbl_img2.grid_remove()  # Oculta la imagen inicial del equipo
-
-            
-        
+                    
     def mostrar_info_frame(self):         
         self.info_frame.grid(row=4, column=0, columnspan=4, padx=10, pady=20, ) 
         
@@ -260,3 +254,4 @@ class Frame1(tb.Frame):
         self.mostrar_imagenes_iniciales()
         
 
+    

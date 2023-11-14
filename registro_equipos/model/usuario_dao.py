@@ -50,11 +50,6 @@ def crear_tabla():
         mensaje = 'Error al crear las tablas: ' + str(e)
         messagebox.showwarning(titulo, mensaje)
 
-
-
-
-
-
 #Permite borrar la tabla usuarios desde el aplicativo
 def borrar_tabla():
     conexion = ConexionDB()

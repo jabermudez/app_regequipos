@@ -124,7 +124,7 @@ class Frame(tb.Frame):
     
     def tabla_usuarios(self):
 
-        #Recuperar la lista de peliculas
+        #Recuperar la lista de usuarios
         self.lista_usuarios =listar()
         self.lista_usuarios.reverse()
               

@@ -14,6 +14,10 @@ def main():
 
     app = Frame3(root = root)
 
+    app.grid(row=2, column=0, sticky="nsew")
+
+    # Configurar el redimensionamiento del grid
+    
     app.mainloop()
 
 

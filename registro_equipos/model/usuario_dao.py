@@ -26,10 +26,7 @@ def crear_tabla():
         documento INTEGER,
         ficha VARCHAR(50),
         correo VARCHAR(100),
-        celular INTEGER,        
-        id_equipo INTEGER,
-        FOREIGN KEY (id_equipo) REFERENCES equipos(id_equipo)
-    
+        celular INTEGER
     )'''
 
     try:
@@ -152,6 +149,28 @@ def buscar(codigo):
     conexion.cerrar()
     
     return usuario
+
+
+# Función para consultar los préstamos
+def consultar_prestamos():
+    conexion = ConexionDB()   
+    
+    
+    conexion.cursor.execute("""
+        SELECT u.codigo, u.nombre, u.apellidos, p.fecha_asignacion, p.fecha_entrega
+        FROM usuarios u
+        JOIN prestamos p ON u.id_usuario = p.id_usuario
+    """)
+    
+    prestamos = conexion.cursor.fetchall()
+    conexion.cerrar()
+    return prestamos
+
+
+
+
+
+
 
 #Se crea la clase equipo
 
@@ -337,3 +356,8 @@ def registrar_entrega(codigo_usuario, codigo_equipo):
         return False, f"Error al registrar la entrega: {e}"
     finally:
         conexion.cerrar()
+
+def obtener_conexion():
+    return sqlite3.connect('tu_base_de_datos.db')  # Cambia esto por la ruta correcta a tu base de datos
+
+

@@ -1,4 +1,5 @@
 import tkinter as tk
+import tkinter.font as tkfont
 import ttkbootstrap as tb
 from tkinter import ttk, messagebox
 from ttkbootstrap import *
@@ -25,8 +26,6 @@ def barra_menu(root):
     barra_menu.add_cascade(label='configuración')
     barra_menu.add_cascade(label='Ayudas')
 
-
-
 class Frame3(tb.Frame):
     def __init__(self, root = None):
         super().__init__(root)
@@ -50,7 +49,9 @@ class Frame3(tb.Frame):
 
         self.tabla_prestamos()
         
-       
+        self.label = tb.Label(root, text='Registro Equipos Prestados',font=('Arial', 16, 'bold'))
+        self.label.configure(foreground='#1464f6')
+        self.label.grid(row=1, column=0, columnspan=2, padx=50, pady=30,  sticky='w')
 # Función para mostrar los préstamos en una tabla
         
     def tabla_prestamos(self):
@@ -58,37 +59,40 @@ class Frame3(tb.Frame):
         #Recuperar la lista de usuarios
         self.lista_prestamo = consultar_prestamos()
         
+        estilo = ttk.Style()
+        fuente_grande = tkfont.Font(family="Arial", size=12)
+        estilo.configure("Treeview", font=fuente_grande)
+
         #Definir columnas        
         self.tabla = ttk.Treeview(self, columns=('Código', 'Nombres', 'Apellidos', 'Fecha Prestamo', 'Fecha Entrega'), bootstyle="dark")
+        self.tabla.grid_columnconfigure(index=1, weight=2) 
         #self.tabla.grid(row=0, column=1, columnspan=5, padx=20, pady=20, sticky='nsew')
 
-           
-        
-        self.tabla.column('Código', width=50)
-        self.tabla.column('Nombres', width=100) 
-        self.tabla.column('Apellidos', width=100)
-        self.tabla.column('Fecha Prestamo', width=100)
-        self.tabla.column('Fecha Entrega', width=100)
+        self.tabla.column('#0', width=0, stretch=tk.NO)
+        self.tabla.column('#1', width=70, anchor=tk.W, stretch=tk.YES) 
+        self.tabla.column('#2', width=170, anchor=tk.W, stretch=tk.YES)
+        self.tabla.column('#3', width=170, anchor=tk.W, stretch=tk.YES)
+        self.tabla.column('#4', width=200, anchor=tk.CENTER, stretch=tk.YES)
+        self.tabla.column('#5', width=200, anchor=tk.CENTER, stretch=tk.YES)
 
-        self.tabla.heading('Código', text='Código')
-        self.tabla.heading('Nombres', text='Nombres')
-        self.tabla.heading('Apellidos', text='Apellidos')
-        self.tabla.heading('Fecha Prestamo', text='Fecha Préstamo')
-        self.tabla.heading('Fecha Entrega', text='Fecha Entrega')
+       
+        self.tabla.heading('#0', text='', anchor=tk.CENTER)
+        self.tabla.heading('#1', text='Código', anchor=tk.CENTER)
+        self.tabla.heading('#2', text='Nombres', anchor=tk.CENTER)
+        self.tabla.heading('#3', text='Apellidos',anchor=tk.CENTER)
+        self.tabla.heading('#4', text='Fecha - Hora Préstamo', anchor=tk.CENTER)
+        self.tabla.heading('#5', text='Fecha - Hora Entrega',anchor=tk.CENTER)
 
         
-        
-            
         #Iterar la lista de prestamos
+        
         for u in self.lista_prestamo:
             self.tabla.insert('', tk.END, values=u)
         
+        self.tabla.grid(row=2, column=0, columnspan=5, ipadx=20, ipady=80, sticky='nsew')
+
 
         
-        self.tabla.grid(row=2, column=1, padx=10, pady=10, sticky='w')
-
-
-        print(self.lista_prestamo)
         
         
         

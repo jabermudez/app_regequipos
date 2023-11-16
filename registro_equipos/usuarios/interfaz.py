@@ -127,7 +127,8 @@ class Frame(tb.Frame):
         #Recuperar la lista de usuarios
         self.lista_usuarios =listar()
         self.lista_usuarios.reverse()
-              
+        
+             
         #Definir columnas        
         self.tabla = ttk.Treeview(self, columns=('Código','Nombres', 'Apellidos', 'Documento','Ficha','Correo','Celular' ),bootstyle="dark")              
         self.tabla.grid(row=4, column=1, columnspan=7, rowspan=2, padx=20, pady=20, sticky='nsew')

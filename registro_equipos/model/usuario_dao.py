@@ -167,11 +167,6 @@ def consultar_prestamos():
     return prestamos
 
 
-
-
-
-
-
 #Se crea la clase equipo
 
 class Equipo:

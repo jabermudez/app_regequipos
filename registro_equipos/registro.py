@@ -1,6 +1,6 @@
 import tkinter as tk
 import ttkbootstrap as tb
-from usuarios.interfaz3 import Frame3, barra_menu
+from usuarios.interfaz2 import Frame1, barra_menu
 
 def main():
     root = tb.Window(themename="morph")
@@ -12,9 +12,9 @@ def main():
     
     barra_menu(root)
 
-    app = Frame3(root = root)
+    app = Frame1(root = root)
 
-    app.grid(row=2, column=0, padx=150, pady=20, sticky='nsew')
+    #app.grid(row=2, column=0, padx=150, pady=20, sticky='nsew')
     
     
     

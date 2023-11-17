@@ -352,7 +352,7 @@ def registrar_entrega(codigo_usuario, codigo_equipo):
     finally:
         conexion.cerrar()
 
-def obtener_conexion():
-    return sqlite3.connect('tu_base_de_datos.db')  # Cambia esto por la ruta correcta a tu base de datos
 
+def obtener_conexion():
+    return sqlite3.connect('usuarios.db')  # Cambia esto por la ruta correcta a tu base de datos
 

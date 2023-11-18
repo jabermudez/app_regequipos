@@ -1,5 +1,9 @@
 import tkinter as tk
+import tkinter.font as tkfont
 import ttkbootstrap as tb
+from tkinter import ttk, messagebox
+from ttkbootstrap import *
+from ttkbootstrap.constants import *
 from tkinter import ttk, messagebox
 from model.usuario_dao import Usuario, guardar, listar, editar, eliminar
 
@@ -7,21 +11,24 @@ from model.usuario_dao import Usuario, guardar, listar, editar, eliminar
 class Frame(tb.Frame):
     def __init__(self, root = None):
         super().__init__(root)
-        self.root = root
-        self.pack()        
+        self.root = root               
         self.id_usuario = None
 
-        self.label_tituloinst = tb.Label(self, text='REGISTRO DE USUARIOS',  font=('Arial', 16, 'bold'),bootstyle="success")
-        self.label_tituloinst.grid(row=0, column=0, columnspan=5, padx=10, pady=10)
-
-
-        self.img = tk.PhotoImage(file="./img/logo.png")
-        self.img = self.img.subsample(3,3)
-        lbl_img = tk.Label(self, bg='#FFA030', image = self.img)        
-        lbl_img.grid(row=0, column=0, padx=10, pady=10, rowspan=3)
-
-        self.label_nominst = tb.Label(self, text='Servicio Nacional\n de Aprendizaje ',font=('Arial', 12,'bold'), bootstyle="dark")
-        self.label_nominst.grid(row=3, column=0, padx=10, pady=10)
+        self.label = tb.Label(root, text='Servicio Nacional de Aprendizaje\n        \n          Centro Agroindustrial',font=('Arial', 18,'bold'), bootstyle='light', anchor='center')
+        self.label.configure(background='#1464f6', width=93)        
+        self.label.grid(row=0, column=0, columnspan=6, padx=0, pady=0, ipady=30)
+        
+        
+        self.img = tk.PhotoImage(file="./img/logo1.png")
+        self.img = self.img.subsample(4,4)
+        self.lbl_img = tb.Label(root,  image = self.img)
+        self.lbl_img.configure(background='#1464f6')                
+        self.lbl_img.grid(row=0, column=0, padx=20, pady=0, ipadx=10, sticky='w')
+       
+        
+        self.label = tb.Label(root, text='Registro Equipos Prestados',font=('Arial', 16, 'bold'))
+        self.label.configure(foreground='#1464f6')
+        self.label.grid(row=1, column=0, columnspan=2, padx=50, pady=30,  sticky='w')
 
         self.campos_usuarios()
         self.deshabilitar_campos()
@@ -30,37 +37,37 @@ class Frame(tb.Frame):
     def campos_usuarios(self):
         #label de cada campo
         self.label_nombre = tb.Label(self, text='Nombres: ', font=('Arial', 12), bootstyle="dark")
-        self.label_nombre.grid(row=1, column=1, padx=10, pady=10, sticky="w")
+        self.label_nombre.grid(row=2, column=1, padx=10, pady=10, sticky="e")
 
         self.label_apellido = tb.Label(self, text='Apellidos: ',font=('Arial', 12), bootstyle="dark")
-        self.label_apellido.grid(row=2, column=1, padx=10, pady=10, sticky="w")
+        self.label_apellido.grid(row=3, column=1, padx=10, pady=10, sticky="e")
 
         self.label_documento = tb.Label(self, text='Identificación: ', font=('Arial', 12), bootstyle="dark")
-        self.label_documento.grid(row=3, column=1, padx=10, pady=10, sticky="w")
+        self.label_documento.grid(row=4, column=1, padx=10, pady=10, sticky="e")
 
          #Campos de entrada
         self.mi_nombre = tb.StringVar()
         self.entry_nombre = tb.Entry(self, textvariable=self.mi_nombre, width=70)
-        self.entry_nombre.grid(row=1, column=2, padx=10, pady=10, columnspan=2, sticky="w")
+        self.entry_nombre.grid(row=2, column=2, padx=10, pady=10, columnspan=2 )
 
         self.mi_apellido = tb.StringVar()
         self.entry_apellido = tb.Entry(self, textvariable=self.mi_apellido, width=70)
-        self.entry_apellido.grid(row=2, column=2, padx=10, pady=10, columnspan=2, sticky="w")
+        self.entry_apellido.grid(row=3, column=2, padx=10, pady=10, columnspan=2)
 
         self.mi_documento = tb.StringVar()
         self.entry_documento = tb.Entry(self, textvariable=self.mi_documento, width=70)
-        self.entry_documento.grid(row=3, column=2, padx=10, pady=10, columnspan=2, sticky="w")
+        self.entry_documento.grid(row=4, column=2, padx=10, pady=10, columnspan=2)
 
         #Botones
 
         self.boton_nuevo = tb.Button(self, text="Nuevo", width=15, bootstyle='primary', command=self.habilitar_campos)
-        self.boton_nuevo.grid(row=4, column=0, padx=5, pady=5)
+        self.boton_nuevo.grid(row=5, column=0,  pady=5, sticky='w')
 
         self.boton_guardar = tb.Button(self, text="Guardar", width=15, bootstyle='info', command=self.guardar_datos)
-        self.boton_guardar.grid(row=5, column=0, padx=5, pady=5)
+        self.boton_guardar.grid(row=6, column=0, pady=5, sticky='w')
 
         self.boton_cancelar = tb.Button(self, text="Cancelar", width=15, bootstyle='danger', command=self.deshabilitar_campos)
-        self.boton_cancelar.grid(row=6, column=0, padx=5, pady=5)
+        self.boton_cancelar.grid(row=7, column=0,  pady=5, sticky='w')
 
     def habilitar_campos(self):
         self.mi_nombre.set('')
@@ -115,7 +122,7 @@ class Frame(tb.Frame):
              
         #Definir columnas        
         self.tabla = ttk.Treeview(self, columns=('Código','Nombres', 'Apellidos', 'Documento','Ficha','Correo','Celular' ),bootstyle="dark")              
-        self.tabla.grid(row=4, column=1, columnspan=7, rowspan=2, padx=20, pady=20, sticky='nsew')
+        self.tabla.grid(row=5, column=1, columnspan=7, rowspan=2, padx=20, pady=20, sticky='nsew')
 
         
         #Scrollbar para la tabla si exede 10 registros
@@ -151,11 +158,11 @@ class Frame(tb.Frame):
 
         #Botón Editar
         self.boton_editar = tb.Button(self, text="Editar", width=20, bootstyle='warning', command= self.editar_datos)
-        self.boton_editar.grid(row=6, column=2, rowspan=2, padx=10, pady=20)
+        self.boton_editar.grid(row=7, column=2, rowspan=2, padx=10, pady=20)
 
         #Botón Eliminar
         self.boton_eliminar = tb.Button(self, text="Eliminar", width=20, bootstyle='danger', command=self.eliminar_datos)
-        self.boton_eliminar.grid(row=6, column=3, rowspan=2, padx=5, pady=15)
+        self.boton_eliminar.grid(row=7, column=3, rowspan=2, padx=5, pady=15)
 
     def editar_datos(self):
         try:

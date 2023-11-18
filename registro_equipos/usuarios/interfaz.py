@@ -1,24 +1,8 @@
 import tkinter as tk
 import ttkbootstrap as tb
 from tkinter import ttk, messagebox
-from model.usuario_dao import crear_tabla, borrar_tabla
 from model.usuario_dao import Usuario, guardar, listar, editar, eliminar
 
-
-def barra_menu(root):
-    barra_menu = tb.Menu(root)
-    root.config(menu = barra_menu)
-
-    menu_inicio = tb.Menu(barra_menu,tearoff=0)
-    barra_menu.add_cascade(label='Inicio', menu = menu_inicio)
-
-    menu_inicio.add_command(label='Crear Registro', command=crear_tabla)
-    menu_inicio.add_command(label='Eliminar Registro', command=borrar_tabla)
-    menu_inicio.add_command(label='Salir', command=root.destroy)
-
-    barra_menu.add_cascade(label='Consultas')
-    barra_menu.add_cascade(label='configuración')
-    barra_menu.add_cascade(label='Ayudas')
 
 class Frame(tb.Frame):
     def __init__(self, root = None):

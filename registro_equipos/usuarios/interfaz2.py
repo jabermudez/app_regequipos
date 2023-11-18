@@ -8,21 +8,6 @@ from model.usuario_dao import Usuario, Equipo
 
 
 
-#Barra Menù Superior 
-def barra_menu(root):
-    barra_menu = tb.Menu(root)
-    root.config(menu = barra_menu)
-
-    menu_inicio = tb.Menu(barra_menu,tearoff=0)
-    barra_menu.add_cascade(label='Inicio', menu = menu_inicio)
-
-    menu_inicio.add_command(label='Crear Registro', command=crear_tabla)
-    menu_inicio.add_command(label='Eliminar Registro', command=borrar_tabla)
-    menu_inicio.add_command(label='Salir', command=root.destroy)
-
-    barra_menu.add_cascade(label='Consultas')
-    barra_menu.add_cascade(label='configuración')
-    barra_menu.add_cascade(label='Ayudas')
 
 class Frame1(tb.Frame):
     def __init__(self, root = None):

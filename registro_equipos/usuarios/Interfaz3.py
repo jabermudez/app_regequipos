@@ -4,27 +4,10 @@ import ttkbootstrap as tb
 from tkinter import ttk, messagebox
 from ttkbootstrap import *
 from ttkbootstrap.constants import *
-
 from tkinter import ttk, messagebox
 from model.usuario_dao import consultar_prestamos
 
 
-
-#barra de neby
-def barra_menu(root):
-    barra_menu = tb.Menu(root)
-    root.config(menu = barra_menu)           
-    
-    menu_inicio = tb.Menu(barra_menu,tearoff=0)
-    barra_menu.add_cascade(label='Inicio', menu = menu_inicio)
-
-    menu_inicio.add_command(label='Crear Registro')
-    menu_inicio.add_command(label='Eliminar Registro')
-    menu_inicio.add_command(label='Salir')
-
-    barra_menu.add_cascade(label='Consultas')
-    barra_menu.add_cascade(label='configuración')
-    barra_menu.add_cascade(label='Ayudas')
 
 class Frame3(tb.Frame):
     def __init__(self, root = None):

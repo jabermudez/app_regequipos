@@ -66,9 +66,9 @@ def borrar_tabla():
 
 #Se crea la clase usuario, a travès de esta se generaràn las diferentes funciones del CRUD
 class Usuario:
-    def __init__(self, codigo, nombre, apellidos, documento, ficha,correo,celular):
+    def __init__(self, nombre, apellidos, documento, ficha,correo,celular):
         self.id_usuario = None
-        self.codigo = codigo
+        self.codigo = None
         self.nombre = nombre
         self.apellido = apellidos
         self.documento = documento
@@ -84,7 +84,7 @@ def guardar(usuario):
     conexion = ConexionDB()
 
     sql =f"""INSERT INTO usuarios (nombre, apellidos, documento, ficha, correo, celular)
-    VALUES('{usuario.nombre}','{usuario.apellido}', {usuario.documento}, '{usuario.ficha}','{usuario.correo}',{usuario.celular},)"""
+    VALUES({usuario.codigo}'{usuario.nombre}','{usuario.apellido}', {usuario.documento}, '{usuario.ficha}','{usuario.correo}',{usuario.celular})"""
 
     try:
         conexion.cursor.execute(sql)
@@ -116,8 +116,8 @@ def editar(usuario, id_usuario):
     conexion = ConexionDB()
 
     sql = f"""UPDATE usuarios 
-    SET nombre ='{usuario.nombre}', apellidos ='{usuario.apellido}', documento = {usuario.documento},  ficha ='{usuario.ficha}', correo ='{usuario.correo}', celular ={usuario.celular}, WHERE id_usuario = {id_usuario}"""
-
+    SET nombre ='{usuario.nombre}', apellidos ='{usuario.apellido}', documento = {usuario.documento},  ficha ='{usuario.ficha}', correo ='{usuario.correo}', celular ={usuario.celular} WHERE id_usuario = {id_usuario}"""
+    print(sql)
     try:
         conexion.cursor.execute(sql)
         conexion.cerrar()

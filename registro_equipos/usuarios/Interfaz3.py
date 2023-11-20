@@ -74,13 +74,6 @@ class Frame3(tb.Frame):
         
         self.tabla.grid(row=2, column=0, columnspan=5, ipadx=20, ipady=80, sticky='nsew')
 
-
-        
-        
-        
-        
-        
-        
         
         '''
         

@@ -75,7 +75,7 @@ class Frame(tb.Frame):
         self.entry_correo = tb.Entry(self, textvariable=self.mi_correo, width=42)
         self.entry_correo.grid(row=3, column=3, padx=10, pady=10)
 
-        self.mi_celular = tb.StringVar()
+        self.mi_celular = tb.IntVar()
         self.entry_celular = tb.Entry(self, textvariable=self.mi_celular, width=42)
         self.entry_celular.grid(row=4, column=3, padx=10, pady=10)
 
@@ -129,7 +129,7 @@ class Frame(tb.Frame):
         self.boton_cancelar.config(state='disabled')
 
     def guardar_datos(self):
-        usuario = Usuario(
+        usuario = Usuario(            
             self.mi_nombre.get(),
             self.mi_apellido.get(),
             self.mi_documento.get(),
@@ -138,7 +138,7 @@ class Frame(tb.Frame):
             self.mi_celular.get(),
         )
 
-        if self.id_usuario == None:
+        if self.id_usuario == None and self.codigo_usuario == None:
             guardar(usuario)
         else:
             editar(usuario, self.id_usuario)
@@ -193,16 +193,27 @@ class Frame(tb.Frame):
 
 
         #Botón Editar
-        self.boton_editar = tb.Button(self, text="Editar", width=15, bootstyle='warning', command= self.editar_datos)
-        self.boton_editar.grid(row=7, column=1, pady=10)
-
+        my_style = tb.Style()        
+        my_style.configure('primary.TButton', font=("Roboto",16))        
+        my_style.configure('info.TButton', font=("Roboto",16))
+        my_style.configure('danger.TButton', font=("Roboto",16))
         #Botón Eliminar
-        self.boton_eliminar = tb.Button(self, text="Eliminar", width=15, bootstyle='danger', command=self.eliminar_datos)
-        self.boton_eliminar.grid(row=7, column=3,  pady=5)
+        self.boton_editar = tb.Button(self, text="Editar", 
+        style="info.Tbutton",                                   
+        width=15, 
+        command=self.editar_datos)
+        self.boton_editar.grid(row=7, column=1,  ipadx=15, ipady=10)
+
+        self.boton_eliminar = tb.Button(self, text="Eliminar", 
+        style="danger.Tbutton",
+        width=15, 
+        command=self.eliminar_datos)
+        self.boton_eliminar.grid(row=7, column=3,  ipadx=15, ipady=10)
 
     def editar_datos(self):
         try:
-            self.id_usuario = self.tabla.item(self.tabla.selection())['text']            
+            self.id_usuario = self.tabla.item(self.tabla.selection())['text']
+            self.codigo_usuario =self.tabla.item(self.tabla.selection())['values'][0]            
             self.nombre_usuario =self.tabla.item(self.tabla.selection())['values'][1]            
             self.apellido_usuario =self.tabla.item(self.tabla.selection())['values'][2]
             self.documento_usuario =self.tabla.item(self.tabla.selection())['values'][3]

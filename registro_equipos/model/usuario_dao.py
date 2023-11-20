@@ -66,7 +66,7 @@ def borrar_tabla():
 
 #Se crea la clase usuario, a travès de esta se generaràn las diferentes funciones del CRUD
 class Usuario:
-    def __init__(self, codigo, nombre, apellidos, documento, ficha,correo,celular, id_equipo):
+    def __init__(self, codigo, nombre, apellidos, documento, ficha,correo,celular):
         self.id_usuario = None
         self.codigo = codigo
         self.nombre = nombre
@@ -75,16 +75,16 @@ class Usuario:
         self.ficha = ficha
         self.correo = correo
         self.celular = celular
-        self.id_equipo = id_equipo
+        
     
     def __str__(self):
-        return f'Usuario[{self.codigo},{self.nombre}, {self.apellido}, {self.documento},{self.ficha},{self.correo},{self.celular},{self.id_equipo}]'
+        return f'Usuario[{self.codigo},{self.nombre}, {self.apellido}, {self.documento},{self.ficha},{self.correo},{self.celular}]'
 
 def guardar(usuario):
     conexion = ConexionDB()
 
-    sql =f"""INSERT INTO usuarios (codigo, nombre, apellidos, documento, ficha, correo, celular)
-    VALUES({usuario.codigo},'{usuario.nombre}','{usuario.apellido}', {usuario.documento}, '{usuario.ficha}','{usuario.correo}',{usuario.celular},)"""
+    sql =f"""INSERT INTO usuarios (nombre, apellidos, documento, ficha, correo, celular)
+    VALUES('{usuario.nombre}','{usuario.apellido}', {usuario.documento}, '{usuario.ficha}','{usuario.correo}',{usuario.celular},)"""
 
     try:
         conexion.cursor.execute(sql)
@@ -116,7 +116,7 @@ def editar(usuario, id_usuario):
     conexion = ConexionDB()
 
     sql = f"""UPDATE usuarios 
-    SET codigo = {usuario.codigo}, nombre ='{usuario.nombre}', apellidos ='{usuario.apellido}', documento = {usuario.documento},  ficha ='{usuario.ficha}', correo ='{usuario.correo}', celular ={usuario.celular}, WHERE id_usuario = {id_usuario}"""
+    SET nombre ='{usuario.nombre}', apellidos ='{usuario.apellido}', documento = {usuario.documento},  ficha ='{usuario.ficha}', correo ='{usuario.correo}', celular ={usuario.celular}, WHERE id_usuario = {id_usuario}"""
 
     try:
         conexion.cursor.execute(sql)

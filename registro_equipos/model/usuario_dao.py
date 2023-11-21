@@ -157,9 +157,19 @@ def consultar_prestamos():
     
     
     conexion.cursor.execute("""
-        SELECT u.codigo, u.nombre, u.apellidos, p.fecha_asignacion, p.fecha_entrega
-        FROM usuarios u
-        JOIN prestamos p ON u.id_usuario = p.id_usuario
+        SELECT 
+                u.codigo AS codigo_usuario, 
+                u.nombre, 
+                u.apellidos, 
+                e.codigo_equipo AS codigo_equipo, 
+                p.fecha_asignacion, 
+                p.fecha_entrega
+            FROM 
+                usuarios u
+            JOIN 
+                prestamos p ON u.id_usuario = p.id_usuario
+            JOIN 
+                equipos e ON p.id_equipo = e.id_equipo
     """)
     
     prestamos = conexion.cursor.fetchall()

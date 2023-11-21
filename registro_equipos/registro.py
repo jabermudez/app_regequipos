@@ -7,7 +7,7 @@ from usuarios.interfaz3 import Frame3
 
 def main():
     root = tb.Window(themename="morph")
-    root.geometry("1100x700+80+0")  
+    root.geometry("1100x800+80+0")  
     root.title('Registro de Equipos de Computo')
     root.iconbitmap('img/nuevo_logo.ico')   
     root.resizable(0,0)
@@ -25,7 +25,7 @@ def mostrar_registro_usuarios():
     
     root = tk.Toplevel()
     root.title("Registro de Usuarios")    
-    root.geometry("1100x700+80+0")      
+    root.geometry("1100x800+80+0")      
     root.iconbitmap('img/nuevo_logo.ico')   
     root.resizable(0,0)
             
@@ -37,11 +37,11 @@ def mostrar_registro_usuarios():
 def mostrar_prestamos_equipos():
     root = tk.Toplevel()
     root.title("Registro Prestamos")    
-    root.geometry("1100x700+80+0")      
+    root.geometry("1100x800+80+0")      
     root.iconbitmap('img/nuevo_logo.ico')   
     root.resizable(0,0)
-        
-   
+           
+    
     app = Frame3(root = root)  
     app.grid(row=2, column=0, padx=150, pady=10, sticky='nsew')
 

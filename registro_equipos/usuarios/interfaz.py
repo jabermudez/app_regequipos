@@ -26,7 +26,7 @@ class Frame(tb.Frame):
         self.lbl_img.grid(row=0, column=0, padx=20, pady=0, ipadx=10, sticky='w')
        
         
-        self.label = tb.Label(root, text='Registro Equipos Prestados',font=('Arial', 16, 'bold'))
+        self.label = tb.Label(root, text='Registro Aprendices',font=('Arial', 16, 'bold'))
         self.label.configure(foreground='#1464f6')
         self.label.grid(row=1, column=0, columnspan=2, padx=55,  pady=20,  sticky='w')
 
@@ -82,13 +82,13 @@ class Frame(tb.Frame):
         #Botones
 
         self.boton_nuevo = tb.Button(self, text="Nuevo", width=10, bootstyle='primary', command=self.habilitar_campos)
-        self.boton_nuevo.grid(row=5, column=0,  pady=5, sticky='ew')
+        self.boton_nuevo.grid(row=5, column=0, ipadx=5, ipady=10)
 
         self.boton_guardar = tb.Button(self, text="Guardar", width=10, bootstyle='info', command=self.guardar_datos)
-        self.boton_guardar.grid(row=6, column=0, pady=5, sticky='ew')
+        self.boton_guardar.grid(row=6, column=0, ipadx=5, ipady=10)
 
         self.boton_cancelar = tb.Button(self, text="Cancelar", width=10, bootstyle='danger', command=self.deshabilitar_campos)
-        self.boton_cancelar.grid(row=7, column=0,  pady=5, sticky='ew')
+        self.boton_cancelar.grid(row=7, column=0,  ipadx=5, ipady=10)
 
     def habilitar_campos(self):
         self.mi_nombre.set('')
@@ -157,14 +157,14 @@ class Frame(tb.Frame):
         
              
         #Definir columnas        
-        self.tabla = ttk.Treeview(self, columns=('Código','Nombres', 'Apellidos', 'Documento','Ficha','Correo','Celular' ),bootstyle="dark")              
-        self.tabla.grid(row=5, column=1, columnspan=8, rowspan=2, padx=10, pady=10, sticky='w')
+        self.tabla = ttk.Treeview(self, columns=('Código','Nombres', 'Apellidos', 'Documento','Ficha','Correo','Celular' ),bootstyle="dark", height='15')              
+        self.tabla.grid(row=5, column=1, columnspan=8, rowspan=3, padx=10, pady=10, sticky='w')
 
         
         #Scrollbar para la tabla si exede 10 registros
         self.scroll = tk.Scrollbar(self,
         orient='vertical', command=self.tabla.yview)
-        self.scroll.grid(row = 5, column=8, rowspan=2, sticky='nse')
+        self.scroll.grid(row = 5, column=8, rowspan=3, sticky='nse')
         self.tabla.configure(yscrollcommand=self.scroll.set)
 
         self.tabla.column('#0', width=50)
@@ -192,23 +192,23 @@ class Frame(tb.Frame):
             self.tabla.insert('',0, text=u[0], values=(u[1], u[2], u[3],u[4],u[5],u[6],u[7]))
 
 
-        #Botón Editar
+        
         my_style = tb.Style()        
         my_style.configure('primary.TButton', font=("Roboto",16))        
         my_style.configure('info.TButton', font=("Roboto",16))
         my_style.configure('danger.TButton', font=("Roboto",16))
-        #Botón Eliminar
+        #Botón Editar
         self.boton_editar = tb.Button(self, text="Editar", 
         style="info.Tbutton",                                   
         width=15, 
         command=self.editar_datos)
-        self.boton_editar.grid(row=7, column=1,  ipadx=15, ipady=10)
-
+        self.boton_editar.grid(row=8, column=1,  ipadx=5, ipady=10, sticky='e')
+         #Botón Eliminar
         self.boton_eliminar = tb.Button(self, text="Eliminar", 
         style="danger.Tbutton",
         width=15, 
         command=self.eliminar_datos)
-        self.boton_eliminar.grid(row=7, column=3,  ipadx=15, ipady=10)
+        self.boton_eliminar.grid(row=8, column=3,  ipadx=5, ipady=10)
 
     def editar_datos(self):
         try:

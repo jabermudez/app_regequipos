@@ -36,6 +36,15 @@ class Frame3(tb.Frame):
         self.label.configure(foreground='#1464f6')
         self.label.grid(row=1, column=0, columnspan=2, padx=50, pady=30,  sticky='w')
 # Función para mostrar los préstamos en una tabla
+       
+        my_style = tb.Style()                      
+        my_style.configure('primary.TButton', font=("Roboto",16), anchor='center')        
+        #Botón Editar
+        self.boton_cerrar = tb.Button(self, text="Cerrar", 
+        style="primary.Tbutton",                                   
+        width=15,
+        command=root.destroy)
+        self.boton_cerrar.grid(row=3, column=0, columnspan=6,  ipadx=5, ipady=10)
         
     def tabla_prestamos(self):
 
@@ -47,24 +56,27 @@ class Frame3(tb.Frame):
         estilo.configure("Treeview", font=fuente_grande)
 
         #Definir columnas        
-        self.tabla = ttk.Treeview(self, columns=('Código', 'Nombres', 'Apellidos', 'Fecha Prestamo', 'Fecha Entrega'), bootstyle="dark")
+        self.tabla = ttk.Treeview(self, columns=('Código', 'Nombres', 'Apellidos','Codigo equipo', 'Fecha Prestamo', 'Fecha Entrega'), bootstyle="dark")
         self.tabla.grid_columnconfigure(index=1, weight=2) 
-        #self.tabla.grid(row=0, column=1, columnspan=5, padx=20, pady=20, sticky='nsew')
+        self.tabla.grid(row=0, column=0, columnspan=6, padx=10, pady=20, sticky='w')
 
         self.tabla.column('#0', width=0, stretch=tk.NO)
-        self.tabla.column('#1', width=70, anchor=tk.W, stretch=tk.YES) 
-        self.tabla.column('#2', width=170, anchor=tk.W, stretch=tk.YES)
-        self.tabla.column('#3', width=170, anchor=tk.W, stretch=tk.YES)
-        self.tabla.column('#4', width=200, anchor=tk.CENTER, stretch=tk.YES)
+        self.tabla.column('#1', width=80, anchor=tk.CENTER, stretch=tk.YES) 
+        self.tabla.column('#2', width=120, anchor=tk.W, stretch=tk.YES)
+        self.tabla.column('#3', width=120, anchor=tk.W, stretch=tk.YES)
+        self.tabla.column('#4', width=70, anchor=tk.CENTER, stretch=tk.YES)
         self.tabla.column('#5', width=200, anchor=tk.CENTER, stretch=tk.YES)
+        self.tabla.column('#6', width=200, anchor=tk.CENTER, stretch=tk.YES)        
 
        
         self.tabla.heading('#0', text='', anchor=tk.CENTER)
-        self.tabla.heading('#1', text='Código', anchor=tk.CENTER)
+        self.tabla.heading('#1', text='Codigo', anchor=tk.CENTER)
         self.tabla.heading('#2', text='Nombres', anchor=tk.CENTER)
         self.tabla.heading('#3', text='Apellidos',anchor=tk.CENTER)
-        self.tabla.heading('#4', text='Fecha - Hora Préstamo', anchor=tk.CENTER)
-        self.tabla.heading('#5', text='Fecha - Hora Entrega',anchor=tk.CENTER)
+        self.tabla.heading('#4', text='Codigo', anchor=tk.CENTER)
+        self.tabla.heading('#5', text='Fecha - Préstamo', anchor=tk.CENTER)
+        self.tabla.heading('#6', text='Fecha - Entrega', anchor=tk.CENTER)
+        
 
         
         #Iterar la lista de prestamos
@@ -72,28 +84,9 @@ class Frame3(tb.Frame):
         for u in self.lista_prestamo:
             self.tabla.insert('', tk.END, values=u)
         
-        self.tabla.grid(row=2, column=0, columnspan=5, ipadx=20, ipady=80, sticky='nsew')
+        self.tabla.grid(row=2, column=0, columnspan=6, ipadx=20, ipady=80, sticky='nsew')
+
+       
 
         
-        '''
-        
-        def mostrar_tabla_prestamos(self):
-        
-        self.prestar = consultar_prestamos()
-
-        self.tree = ttk.Treeview(self, columns=('Codigo', 'Nombre', 'Apellidos', 'Fecha Prestamo',  'Fecha Entrega'),show='headings', bootstyle="dark")
-        self.tree.grid(row=1, column=1, columnspan=5, padx=20, pady=20, sticky='nsew')
-                
-        self.tree.heading('Codigo', text='Código')
-        self.tree.heading('Nombre', text='Nombre')
-        self.tree.heading('Apellidos', text='Apellidos')
-        self.tree.heading('Fecha Prestamo', text='Fecha Prestamo')    
-        self.tree.heading('Fecha Entrega', text='Fecha Entrega')
-             
-        
-        for prestamo in self.prestar:
-            self.tree.insert('', tb.END, values=prestamo)
-        
-        print(prestamo)'''
-    # Llama a esta función donde necesites para mostrar los préstamos
-    
+       

@@ -366,3 +366,9 @@ def registrar_entrega(codigo_usuario, codigo_equipo):
 def obtener_conexion():
     return sqlite3.connect('usuarios.db')  # Cambia esto por la ruta correcta a tu base de datos
 
+def contar_equipos_prestados():
+    conexion = ConexionDB()
+    
+    conexion.cursor.execute("SELECT COUNT(*) FROM prestamos WHERE fecha_entrega IS NULL")
+    return conexion.cursor.fetchone()[0]
+    

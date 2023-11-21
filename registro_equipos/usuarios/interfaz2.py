@@ -3,7 +3,7 @@ import ttkbootstrap as tb
 from ttkbootstrap import *
 from ttkbootstrap.constants import *
 from tkinter import ttk, messagebox
-from model.usuario_dao import crear_tabla, borrar_tabla,buscar, buscareq, asignar_equipo_a_usuario_db, registrar_entrega
+from model.usuario_dao import buscar, buscareq, asignar_equipo_a_usuario_db, registrar_entrega, contar_equipos_prestados
 from model.usuario_dao import Usuario, Equipo
 
 
@@ -115,8 +115,12 @@ class Frame1(tb.Frame):
         my_style.configure('TButton', font=('Roboto', 12, 'bold'))
         my_style.configure('TEntry', font=('Roboto', 12), padding=5)
         
-                          
-        #Campos de entrada
+        #Muestra la cantidad de equipos prestados                  
+        self.label_equipos_prestados = tb.Label(root, text="", font=('Roboto', 14, 'bold'), bootstyle='secondary')
+        self.label_equipos_prestados.configure(foreground='#1464f6')
+        self.label_equipos_prestados.grid(row=5, column=1, columnspan=2, pady=10, ipadx=15, ipady=15)
+
+        self.actualizar_cantidad_equipos_prestados()
         
     
     def buscar_datos(self):
@@ -244,4 +248,8 @@ class Frame1(tb.Frame):
         self.entry_codigo.delete(0, tk.END)
         self.entry_codigo_equipo.delete(0, tk.END)
         
-        
+    def actualizar_cantidad_equipos_prestados(self):
+        cantidad = contar_equipos_prestados()
+        self.label_equipos_prestados.config(text=f"Equipos prestados actualmente: {cantidad}")
+        # Programar la siguiente actualización en 60 segundos (60000 milisegundos)
+        self.after(1,self.actualizar_cantidad_equipos_prestados)    

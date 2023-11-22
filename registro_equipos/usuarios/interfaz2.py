@@ -60,7 +60,7 @@ class Frame1(tb.Frame):
         self.img1 = tk.PhotoImage(file="./img/user.png")
         self.img1 = self.img1.subsample(3,3)
         self.lbl_img1 = tb.Label(root,  image = self.img1)                    
-        self.lbl_img1.grid(row=4, column=0, columnspan=2, padx=120, pady=10)
+        self.lbl_img1.grid(row=4, column=0, columnspan=2, padx=120, pady=5)
         
         
         #self.label_informacion1 = tb.Label(root, text="", font=('Roboto', 12, 'bold'),  anchor='center')
@@ -70,7 +70,7 @@ class Frame1(tb.Frame):
         self.img2 = tk.PhotoImage(file="./img/equipo.png")
         self.img2 = self.img2.subsample(2,2)
         self.lbl_img2 = tb.Label(root,  image = self.img2)                    
-        self.lbl_img2.grid(row=4, column=2, columnspan=2, padx=0, pady=10)
+        self.lbl_img2.grid(row=4, column=2, columnspan=2, padx=0, pady=5)
 
         
 
@@ -118,7 +118,7 @@ class Frame1(tb.Frame):
         #Muestra la cantidad de equipos prestados                  
         self.label_equipos_prestados = tb.Label(root, text="", font=('Roboto', 14, 'bold'), bootstyle='secondary')
         self.label_equipos_prestados.configure(foreground='#1464f6')
-        self.label_equipos_prestados.grid(row=5, column=1, columnspan=2, pady=10, ipadx=15, ipady=15)
+        self.label_equipos_prestados.grid(row=5, column=1, columnspan=2)
 
         self.actualizar_cantidad_equipos_prestados()
         

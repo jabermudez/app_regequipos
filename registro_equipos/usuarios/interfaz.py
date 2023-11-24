@@ -111,7 +111,7 @@ class Frame(tb.Frame):
 
     def deshabilitar_campos(self):
         self.id_usuario = None
-
+        self.codigo = None
         self.mi_nombre.set('')
         self.mi_apellido.set('')
         self.mi_documento.set('')
@@ -129,6 +129,9 @@ class Frame(tb.Frame):
         self.boton_cancelar.config(state='disabled')
 
     def guardar_datos(self):
+        
+     
+       
         usuario = Usuario(            
             self.mi_nombre.get(),
             self.mi_apellido.get(),
@@ -137,17 +140,17 @@ class Frame(tb.Frame):
             self.mi_correo.get(),
             self.mi_celular.get(),
         )
-
-        if self.id_usuario == None and self.codigo_usuario == None:
-            guardar(usuario)
-        else:
-            editar(usuario, self.id_usuario)
-
         
-        self.tabla_usuarios()
+        if self.id_usuario == None and self.codigo == None:
+            guardar(usuario)  
+            
+        else:
+                editar(usuario, self.id_usuario)
+        
 
         #Deshabilitar campos
         self.deshabilitar_campos()
+        self.tabla_usuarios()
     
     def tabla_usuarios(self):
 

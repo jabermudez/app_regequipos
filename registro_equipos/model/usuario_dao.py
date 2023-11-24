@@ -75,8 +75,7 @@ class Usuario:
         self.ficha = ficha
         self.correo = correo
         self.celular = celular
-        
-    
+            
     def __str__(self):
         return f'Usuario[{self.codigo},{self.nombre}, {self.apellido}, {self.documento},{self.ficha},{self.correo},{self.celular}]'
 
@@ -84,11 +83,14 @@ def guardar(usuario):
     conexion = ConexionDB()
 
     sql =f"""INSERT INTO usuarios (nombre, apellidos, documento, ficha, correo, celular)
-    VALUES({usuario.codigo}'{usuario.nombre}','{usuario.apellido}', {usuario.documento}, '{usuario.ficha}','{usuario.correo}',{usuario.celular})"""
+    VALUES('{usuario.nombre}','{usuario.apellido}', {usuario.documento}, '{usuario.ficha}','{usuario.correo}',{usuario.celular})"""
 
     try:
         conexion.cursor.execute(sql)
         conexion.cerrar()
+        titulo = 'Usuario registrado'
+        mensaje = 'El usuario se ha registrado correctamente'
+        messagebox.showinfo(titulo, mensaje)
     except:
         titulo = 'Conexiòn al Registro'
         mensaje = 'La tabla usuario no se encuentra registrada'
@@ -117,10 +119,13 @@ def editar(usuario, id_usuario):
 
     sql = f"""UPDATE usuarios 
     SET nombre ='{usuario.nombre}', apellidos ='{usuario.apellido}', documento = {usuario.documento},  ficha ='{usuario.ficha}', correo ='{usuario.correo}', celular ={usuario.celular} WHERE id_usuario = {id_usuario}"""
-    print(sql)
+    
     try:
         conexion.cursor.execute(sql)
         conexion.cerrar()
+        titulo = 'Usuario Actualizado'
+        mensaje = 'El usuario se ha actualizado correctamente'
+        messagebox.showinfo(titulo, mensaje)
     except:
         titulo = 'Edición de datos'
         mensaje = 'No se ha podido editar este registro'

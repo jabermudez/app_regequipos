@@ -3,6 +3,7 @@ import ttkbootstrap as tb
 from usuarios.interfaz import Frame
 from usuarios.interfaz2 import Frame1
 from usuarios.interfaz3 import Frame3
+from backup.backup import schedule_backup_tasks
 
 
 def main():
@@ -59,7 +60,10 @@ def barra_menu(root):
     menu_consultas.add_command(label='Registro de Usuarios', command=mostrar_registro_usuarios)
     menu_consultas.add_command(label='Préstamos de Equipos', command=mostrar_prestamos_equipos)
 
-
+     
+    
 
 if __name__ == '__main__':
     main()
+    
+    schedule_backup_tasks()

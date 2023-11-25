@@ -61,9 +61,9 @@ def barra_menu(root):
     menu_consultas.add_command(label='Préstamos de Equipos', command=mostrar_prestamos_equipos)
 
      
-    
+    schedule_backup_tasks()
 
 if __name__ == '__main__':
     main()
     
-    schedule_backup_tasks()
+    

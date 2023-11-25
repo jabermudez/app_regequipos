@@ -41,20 +41,26 @@ def schedule_backup_tasks():
         
     sender_email = 'sia.serviciostic@gmail.com'
     receiver_email = 'sia.serviciostic@outlook.com'
-    email_password = 'Machu2023.'
+    email_password = 'mvev pfxc hikc ovlw'
 
     # Programa las tareas
-    #schedule.every().day.at("22:52").do(backup_database, db_path=db_path, backup_path=backup_path)
-    #schedule.every().day.at("22:53").do(send_backup_email, backup_path=backup_path, sender_email=sender_email, receiver_email=receiver_email, email_password=email_password)
-    backup_database(db_path, backup_path)
-    send_backup_email(backup_path=backup_path, sender_email=sender_email, receiver_email=receiver_email, email_password=email_password)
+    schedule.every().day.at("10:30").do(backup_database, db_path, backup_path)
+    #schedule.every().day.at("10:28").do(backup_database(db_path, backup_path))
+    schedule.every().day.at("10:31").do(send_backup_email, backup_path=backup_path, sender_email=sender_email, receiver_email=receiver_email, email_password=email_password)
+    #backup_database(db_path, backup_path)
+    #send_backup_email(backup_path=backup_path, sender_email=sender_email, receiver_email=receiver_email, email_password=email_password)
    
     global running
     running = True
 
+   
     while running:
-        # código del while
     
-        running = False # para terminar
+        try:
+            schedule.run_pending()  
+            time.sleep(1)
+        
+        except Exception as e:
+            print("Error:", e)
 
-
+        running = False

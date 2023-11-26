@@ -1,5 +1,6 @@
 import tkinter as tk
 import ttkbootstrap as tb
+import threading
 from usuarios.interfaz import Frame
 from usuarios.interfaz2 import Frame1
 from usuarios.interfaz3 import Frame3
@@ -12,15 +13,14 @@ def main():
     root.title('Registro de Equipos de Computo')
     root.iconbitmap('img/nuevo_logo.ico')   
     root.resizable(0,0)
-        
-    
+            
+
     barra_menu(root)
 
     app = Frame1(root = root)    
    
     app.mainloop()
-
-
+        
 
 def mostrar_registro_usuarios():
     
@@ -60,10 +60,8 @@ def barra_menu(root):
     menu_consultas.add_command(label='Registro de Usuarios', command=mostrar_registro_usuarios)
     menu_consultas.add_command(label='Préstamos de Equipos', command=mostrar_prestamos_equipos)
 
-     
-    schedule_backup_tasks()
+
 
 if __name__ == '__main__':
     main()
-    
     

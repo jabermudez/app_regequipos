@@ -47,8 +47,8 @@ def schedule_backup_tasks():
     email_password = 'mvev pfxc hikc ovlw'
 
     # Programa las tareas en las horas especificadas
-    schedule.every().day.at("18:33").do(backup_database, db_path=db_path, backup_path=backup_path)
-    schedule.every().day.at("18:34").do(send_backup_email, backup_path=backup_path, sender_email=sender_email, receiver_email=receiver_email, email_password=email_password)
+    schedule.every().day.at("20:00").do(backup_database, db_path=db_path, backup_path=backup_path)
+    schedule.every().day.at("20:02").do(send_backup_email, backup_path=backup_path, sender_email=sender_email, receiver_email=receiver_email, email_password=email_password)
     #backup_database(db_path, backup_path)
     #send_backup_email(backup_path=backup_path, sender_email=sender_email, receiver_email=receiver_email, email_password=email_password)
    

@@ -50,6 +50,7 @@ class Frame3(tb.Frame):
 
         #Recuperar la lista de usuarios
         self.lista_prestamo = consultar_prestamos()
+        self.lista_prestamo.reverse()
         
         estilo = ttk.Style()
         fuente_grande = tkfont.Font(family="Arial", size=12)

@@ -129,9 +129,6 @@ class Frame(tb.Frame):
         self.boton_cancelar.config(state='disabled')
 
     def guardar_datos(self):
-        
-     
-       
         usuario = Usuario(            
             self.mi_nombre.get(),
             self.mi_apellido.get(),

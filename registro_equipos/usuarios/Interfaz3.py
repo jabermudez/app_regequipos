@@ -59,7 +59,13 @@ class Frame3(tb.Frame):
         #Definir columnas        
         self.tabla = ttk.Treeview(self, columns=('Código', 'Nombres', 'Apellidos','Codigo equipo', 'Fecha Prestamo', 'Fecha Entrega'), bootstyle="dark")
         self.tabla.grid_columnconfigure(index=1, weight=2) 
-        self.tabla.grid(row=0, column=0, columnspan=6, padx=10, pady=20, sticky='w')
+        self.tabla.grid(row=0, column=0, columnspan=6, pady=20, sticky='w')
+        
+         #Scrollbar para la tabla si exede 10 registros
+        self.scroll = tk.Scrollbar(self,
+        orient='vertical', command=self.tabla.yview)
+        self.scroll.grid(row = 1, column=6, rowspan=2, sticky='nsew')
+        self.tabla.configure(yscrollcommand=self.scroll.set)
 
         self.tabla.column('#0', width=0, stretch=tk.NO)
         self.tabla.column('#1', width=80, anchor=tk.CENTER, stretch=tk.YES) 
